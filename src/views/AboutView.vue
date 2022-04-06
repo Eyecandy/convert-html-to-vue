@@ -1,7 +1,7 @@
 <template>
 
     <body bgcolor="#FFFFFF">
-      <img src="logo-liten.png" alt="" width="130">
+      <img src="../assets/logo-liten.png" alt="" width="130">
 
       <center>
 
@@ -88,7 +88,7 @@
                       </td>
                       <td>
                         <font face="Helvetica" color="#FFFFFF" size="1">Ved å registrere deg godtar du våre generelle
-                          vilkår. Les mer <a href="betingelser2.html" target="_blank"><u>her</u></a>.</font>
+                          vilkår. Les mer <router-link to="/policy1" tag="button">her</router-link>.</font>
                       </td>
                       <td>&nbsp;</td>
                       <td>&nbsp;</td>
@@ -117,7 +117,7 @@
                       <th scope="row">&nbsp;</th>
                       <td>&nbsp;</td>
                       <td colspan="4">
-                        <center><img src="logo-liten.png" alt="" width="130"> </center>
+                        <center><img src="../assets/logo-liten.png" alt="" width="130"> </center>
                       </td>
                       <td>&nbsp;</td>
                       <td>&nbsp;</td>
@@ -132,66 +132,66 @@
 
       </center>
       <br>
-      <table width="650" border="0" align="center">
-        <tbody>
-          <tr>
-            <td>
-              <center><iframe src="reklamebanner2.png" height="60" width="468" title="Iframe Example"></iframe></center>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
+    <CommercialBanner/>
     </body>
 </template>
+<script>
+import CommercialBanner from '@/components/CommercialBanner.vue'
 
-     <style >
-      button.mbtn {
-        padding: 0.6em 2em;
-        border-radius: 30px;
-        color: #fff;
-        background-color: #3276ce;
-        font-size: 1.1em;
-        border: 0;
-        cursor: pointer;
-        margin: 1em;
-      }
+export default {
+ 
+  components: {
+    CommercialBanner
+  },
+};
+</script>
 
 
-      #rcorners2 {
-        border-radius: 25px;
-        border: 1px solid #ffffff;
-        padding: 8px;
-        width: 150px;
-        height: 5px;
-      }
 
-      body {
-        background-image: url('../assets/Forsidebilde.png');
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
-      }
 
-      .transparent-style {
+<style >
+button.mbtn {
+  padding: 0.6em 2em;
+  border-radius: 30px;
+  color: #fff;
+  background-color: #3276ce;
+  font-size: 1.1em;
+  border: 0;
+  cursor: pointer;
+  margin: 1em;
+}
 
-        background: rgba(0, 0, 0, 0.3)
-          
+#rcorners2 {
+  border-radius: 25px;
+  border: 1px solid #ffffff;
+  padding: 8px;
+  width: 150px;
+  height: 5px;
+}
 
-      }
+body {
+  background-image: url("../assets/Forsidebilde.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
 
-      table.roundedCorners {
-        border: 1px solid DarkGrey;
-        border-radius: 13px;
-        border-spacing: 0;
-      }
+.transparent-style {
+  background: rgba(0, 0, 0, 0.3);
+}
 
-      table.roundedCorners tr:last-child>td {
-        border-bottom: none;
-      }
+table.roundedCorners {
+  border: 1px solid DarkGrey;
+  border-radius: 13px;
+  border-spacing: 0;
+}
 
-      .linska-text-web {
-        font-family: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter, Monaco, Courier New, monospace;
-      }
-    </style>
-    
+table.roundedCorners tr:last-child > td {
+  border-bottom: none;
+}
+
+.linska-text-web {
+  font-family: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter,
+    Monaco, Courier New, monospace;
+}
+</style>
