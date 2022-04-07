@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <nav>
-        <router-link to="/registration" tag="button">Registration</router-link>
+      <router-link to="/registration" tag="v-btn">Registration</router-link>
     </nav>
     <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
