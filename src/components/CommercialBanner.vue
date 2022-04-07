@@ -1,13 +1,14 @@
 <template>
-
-   <table width="650" border="0" align="center">
-        <tbody>
-          <tr>
-            <td>
-              <center> <img alt="Vue logo" src="../assets/reklamebanner2.png"/></center>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    
+  <div class="commercial-box-horizontal">
+    <img alt="commercial" src="../assets//images/reklamebanner2.png" />
+  </div>
 </template>
+
+<style scoped>
+.commercial-box-horizontal {
+  width: 650px;
+  height: 50px;
+  border: 0;
+  align-self: "center";
+}
+</style>

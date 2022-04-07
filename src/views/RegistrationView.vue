@@ -1,6 +1,6 @@
 <template>
   <body bgcolor="#FFFFFF">
-    <img src="../assets/logo-liten.png" alt="" width="130" />
+    <img src="../assets/images/logo-liten.png" alt="" width="130" />
 
     <center>
       <br /><br /><br /><br />
@@ -40,7 +40,7 @@
                     <td width="44" height="32">&nbsp;</td>
                     <td width="30">
                       <img
-                        src="../assets/two-fingers.png"
+                        src="../assets/images/two-fingers.png"
                         height="30"
                         width="30"
                       />
@@ -57,7 +57,7 @@
                     <td width="44" height="32">&nbsp;</td>
                     <td>
                       <img
-                        src="../assets/two-fingers.png"
+                        src="../assets/images/two-fingers.png"
                         height="30"
                         width="30"
                       />
@@ -72,7 +72,7 @@
                     <td width="44" height="45">&nbsp;</td>
                     <td>
                       <img
-                        src="../assets/two-fingers.png"
+                        src="../assets/images/two-fingers.png"
                         height="30"
                         width="30"
                       />
@@ -163,7 +163,7 @@
                     <td colspan="4">
                       <center>
                         <img
-                          src="../assets/logo-liten.png"
+                          src="../assets/images/logo-liten.png"
                           alt=""
                           width="130"
                         />
@@ -181,7 +181,9 @@
       </table>
     </center>
     <br />
-    <CommercialBanner />
+    <center>
+      <CommercialBanner />
+    </center>
   </body>
 </template>
 <script>
@@ -193,50 +195,3 @@ export default {
   },
 };
 </script>
-
-<style>
-button.mbtn {
-  padding: 0.6em 2em;
-  border-radius: 30px;
-  color: #fff;
-  background-color: #3276ce;
-  font-size: 1.1em;
-  border: 0;
-  cursor: pointer;
-  margin: 1em;
-}
-
-#rcorners2 {
-  border-radius: 25px;
-  border: 1px solid #ffffff;
-  padding: 8px;
-  width: 150px;
-  height: 5px;
-}
-
-body {
-  background-image: url("../assets/Forsidebilde.png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-}
-
-.transparent-style {
-  background: rgba(0, 0, 0, 0.3);
-}
-
-table.roundedCorners {
-  border: 1px solid DarkGrey;
-  border-radius: 13px;
-  border-spacing: 0;
-}
-
-table.roundedCorners tr:last-child > td {
-  border-bottom: none;
-}
-
-.linska-text-web {
-  font-family: Consolas, Andale Mono, Lucida Console, Lucida Sans Typewriter,
-    Monaco, Courier New, monospace;
-}
-</style>

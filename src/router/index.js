@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import AboutView from "../views/AboutView.vue";
-import Policy1 from "../views/PolicyAgreement.vue"
+import RegistrationView from "../views/RegistrationView.vue";
+import Policy1 from "../views/PolicyAgreement.vue";
 
 const routes = [
   {
@@ -12,15 +12,13 @@ const routes = [
   {
     path: "/registration",
     name: "registration",
-    component:AboutView
+    component: RegistrationView,
   },
   {
     name: "policy1",
     path: "/policy1",
-    component: Policy1
-
-
-  }
+    component: Policy1,
+  },
 ];
 
 const router = createRouter({
