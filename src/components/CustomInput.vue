@@ -3,7 +3,7 @@
     <label>
       <font face="Helvetica" color="#FFFFFF" size="2">{{ label }}</font>
     </label>
-    <input type="text" v-model="inputValue" id="rcorners2" />
+    <input :type="type" v-model="inputValue" id="rcorners2" />
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
       },
     },
   },
-  props: ["label", "modelValue"],
+  props: ["label", "modelValue", "type"],
 };
 </script>
 

@@ -43,11 +43,15 @@
           </td>
           <tr class="margin_between_text"></tr>
         </div>
-        <CustomInput type="email" v-model="email" v-bind:label="emailLabel" />
+        <CustomInput
+          :type="email"
+          v-model="formData.email"
+          v-bind:label="emailLabel"
+        />
 
         <CustomInput
           type="password"
-          v-model="password"
+          v-model="formData.password"
           v-bind:label="passwordLabel"
         />
 
@@ -66,20 +70,37 @@
 
 <script>
 import CustomInput from "@/components/CustomInput";
-
+import axios from "axios";
 export default {
   data() {
     return {
       title: "Ny bil til laveste pris! Enkelt og greit",
-      email: "",
-      password: "",
       emailLabel: "Email",
+      passwordType: "password",
       passwordLabel: "Password",
+      formData: {
+        email: "",
+        password: "",
+        matchingPassword: "",
+      },
     };
   },
   methods: {
     handleSubmit() {
-      console.log("submitted", this.email, this.password);
+      console.log(
+        "submitted",
+        this.formData.email,
+        this.formData.password,
+        this.formData.matchingPassword
+      );
+      axios
+        .post("/api/register", {
+          email: this.formData.email,
+          password: this.formData.password,
+          matchingPassword: this.formData.matchingPassword,
+        })
+        .then((Response) => console.log(Response))
+        .catch((Response) => console.log(Response));
     },
   },
   components: { CustomInput },
