@@ -1,197 +1,150 @@
 <template>
-  <body bgcolor="#FFFFFF">
-    <img src="../assets/images/logo-liten.png" alt="" width="130" />
-
-    <center>
-      <br /><br /><br /><br />
-
-      <table
-        width="650"
-        height="401"
-        border="0"
-        class="roundedCorners transparent-style"
-      >
-        <tbody>
-          <tr>
-            <td width="650" height="397">
-              <table width="650" height="403" border="0">
-                <tbody>
-                  <tr>
-                    <th width="9" scope="row">&nbsp;</th>
-                    <td colspan="6">
-                      <center>
-                        <font face="Helvetica" color="#FFFFFF" size="4"
-                          ><b>Ny bil til laveste pris! Enkelt og greit</b></font
-                        >
-                      </center>
-                    </td>
-                    <td width="16">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">&nbsp;</th>
-                    <td width="83">&nbsp;</td>
-                    <td colspan="4"></td>
-                    <td width="76">&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <th height="51" rowspan="3" scope="row">&nbsp;</th>
-                    <td rowspan="3">&nbsp;</td>
-                    <td width="44" height="32">&nbsp;</td>
-                    <td width="30">
-                      <img
-                        src="../assets/images/two-fingers.png"
-                        height="30"
-                        width="30"
-                      />
-                    </td>
-                    <td colspan="2">
-                      <font face="Helvetica" color="#FFFFFF" size="3"
-                        ><i>Best pris på nybil!</i></font
-                      >
-                    </td>
-                    <td rowspan="3">&nbsp;</td>
-                    <td rowspan="3">&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td width="44" height="32">&nbsp;</td>
-                    <td>
-                      <img
-                        src="../assets/images/two-fingers.png"
-                        height="30"
-                        width="30"
-                      />
-                    </td>
-                    <td colspan="2">
-                      <font face="Helvetica" color="#FFFFFF" size="3"
-                        ><i>Super enkelt!</i></font
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td width="44" height="45">&nbsp;</td>
-                    <td>
-                      <img
-                        src="../assets/images/two-fingers.png"
-                        height="30"
-                        width="30"
-                      />
-                    </td>
-                    <td colspan="2">
-                      <font face="Helvetica" color="#FFFFFF" size="3"
-                        ><i>Velg mellom flere forhandlere</i></font
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <th height="22" scope="row">&nbsp;</th>
-                    <td>&nbsp;</td>
-                    <td colspan="3">
-                      <font face="Helvetica" color="#FFFFFF" size="2"
-                        >E-post</font
-                      >
-                    </td>
-                    <td width="339">
-                      <label for="email"></label>
-                      <input type="email" name="email" id="rcorners2" />
-                    </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <th height="54" scope="row">&nbsp;</th>
-                    <td>&nbsp;</td>
-                    <td colspan="3">
-                      <font face="Helvetica" color="#FFFFFF" size="2"
-                        >Ønsket passord</font
-                      >
-                    </td>
-                    <td>
-                      <label for="password"></label>
-                      <input type="password" name="password" id="rcorners2" />
-                    </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">&nbsp;</th>
-                    <td>&nbsp;</td>
-                    <td colspan="2">&nbsp;</td>
-                    <td width="19">
-                      <input type="checkbox" name="checkbox" id="checkbox" />
-                      <label for="checkbox"></label>
-                    </td>
-                    <td>
-                      <font face="Helvetica" color="#FFFFFF" size="1"
-                        >Ved å registrere deg godtar du våre generelle vilkår.
-                        Les mer
-                        <router-link to="/policy1">her</router-link>.</font
-                      >
-                    </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">&nbsp;</th>
-                    <td>&nbsp;</td>
-                    <td colspan="4">
-                      <a href="min-side.html">
-                        <center>
-                          <button class="mbtn blue">Registrer deg</button>
-                        </center>
-                      </a>
-                    </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">&nbsp;</th>
-                    <td>&nbsp;</td>
-                    <td colspan="3">&nbsp;</td>
-                    <td>
-                      <font face="Helvetica" color="#FFFFFF" size="1"
-                        >Allerede registrert? Trykk <u>her</u> for å logge
-                        inn.</font
-                      >
-                    </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">&nbsp;</th>
-                    <td>&nbsp;</td>
-                    <td colspan="4">
-                      <center>
-                        <img
-                          src="../assets/images/logo-liten.png"
-                          alt=""
-                          width="130"
-                        />
-                      </center>
-                    </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>&nbsp;</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </center>
-    <br />
-    <center>
-      <CommercialBanner />
-    </center>
-  </body>
+  <div>
+    <section
+      data-bs-version="5.1"
+      class="form4 cid-t2pwi0gPN4 mbr-fullscreen"
+      id="form4-a"
+    >
+      <div class="container">
+        <div class="row content-wrapper justify-content-center">
+          <div class="col-lg-4 mbr-form">
+            <!--Formbuilder Form-->
+            <form @submit.prevent="handleSubmit">
+              <div class="row">
+                <div
+                  hidden="hidden"
+                  data-form-alert-danger=""
+                  class="alert alert-danger col-12"
+                >
+                  Oops...! some problem!
+                </div>
+              </div>
+              <div class="dragArea row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <h1 class="mbr-section-title mb-3 display-2">
+                    Opprett bruker
+                  </h1>
+                </div>
+                <div
+                  class="col-lg-8 col-md-12 col-sm-12 form-group"
+                  data-for="Brukernavn"
+                >
+                  <input
+                    type="email"
+                    name="Brukernavn"
+                    placeholder="Skriv inn din e-post"
+                    class="form-control display-7"
+                    required="required"
+                    value=""
+                    id="Brukernavn-form4-a"
+                  />
+                </div>
+                <div
+                  class="col-lg-8 col-md-12 col-sm-12 form-group"
+                  data-for="password"
+                  style=""
+                >
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Ønsket passord"
+                    v-model="password"
+                    class="form-control display-7"
+                    required="required"
+                  />
+                </div>
+                <div
+                  class="col-lg-8 col-md-12 col-sm-12 form-group"
+                  data-for="password1"
+                >
+                  <input
+                    type="password"
+                    name="password1"
+                    placeholder="Bekreft passord"
+                    class="form-control display-7"
+                    required="required"
+                    value=""
+                  />
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                  <div class="form-control-label"></div>
+                  <div
+                    data-for="Ved å registrere deg godtar du våre generelle vilkår. Les mer her."
+                    class="form-check form-check-inline ms-2"
+                  >
+                    <input
+                      type="checkbox"
+                      value="Yes"
+                      name="Ved å registrere deg godtar du våre generelle vilkår. Les mer her."
+                      class="form-check-input display-7"
+                      required="required"
+                      id="Ved å registrere deg godtar du våre generelle vilkår. Les mer her.-form4-a"
+                    />
+                    <label
+                      for="Ved å registrere deg godtar du våre generelle vilkår. Les mer her.-form4-a"
+                      class="form-check-label display-7"
+                      >Ved å registrere deg godtar du våre generelle vilkår. Les
+                      mer her.</label
+                    >
+                  </div>
+                </div>
+                <div class="col-12 col-md-auto mbr-section-btn">
+                  <button type="submit" class="w-100 btn btn-primary display-4">
+                    Registrer bruker
+                  </button>
+                </div>
+              </div>
+            </form>
+            <!--Formbuilder Form-->
+          </div>
+          <div class="col-lg-7 offset-lg-1 col-12">
+            <div class="image-wrapper">
+              <img
+                class="w-100"
+                src="../assets/images/intro-1000x667.png"
+                alt="Digibil"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
+
 <script>
-import CommercialBanner from "@/components/CommercialBanner.vue";
+import "../assets/bootstrap/css/bootstrap.min.css";
+import "../assets/bootstrap/css/bootstrap-reboot.min.css";
+import "../assets/mobirise/css/mbr-additional.css";
+import "../assets/theme/css/style.css";
+import axios from "axios";
 
 export default {
-  components: {
-    CommercialBanner,
+  name: "HomeView",
+  data() {
+    return {
+      email: "",
+      password: "",
+      matchingPassword: "",
+    };
+  },
+  methods: {
+    handleSubmit() {
+      console.log(
+        "submitted",
+        this.email,
+        this.password,
+        this.matchingPassword
+      );
+      axios
+        .post("/api/register", {
+          email: this.email,
+          password: this.password,
+          matchingPassword: this.matchingPassword,
+        })
+        .then((Response) => console.log(Response))
+        .catch((Response) => console.log(Response));
+    },
   },
 };
 </script>
