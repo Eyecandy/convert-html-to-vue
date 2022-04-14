@@ -35,7 +35,7 @@
                     placeholder="Skriv inn din e-post"
                     class="form-control display-7"
                     required="required"
-                    value=""
+                    v-model="email"
                     id="Brukernavn-form4-a"
                   />
                 </div>
@@ -62,8 +62,8 @@
                     name="password1"
                     placeholder="Bekreft passord"
                     class="form-control display-7"
+                    v-model="matchingPassword"
                     required="required"
-                    value=""
                   />
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 form-group">
@@ -77,7 +77,6 @@
                       value="Yes"
                       name="Ved å registrere deg godtar du våre generelle vilkår. Les mer her."
                       class="form-check-input display-7"
-                      required="required"
                       id="Ved å registrere deg godtar du våre generelle vilkår. Les mer her.-form4-a"
                     />
                     <label
@@ -114,7 +113,7 @@
 
 <script>
 import "../assets/bootstrap/css/bootstrap.min.css";
-import "../assets/bootstrap/css/bootstrap-reboot.min.css";
+
 import "../assets/mobirise/css/mbr-additional.css";
 import "../assets/theme/css/style.css";
 import axios from "axios";
