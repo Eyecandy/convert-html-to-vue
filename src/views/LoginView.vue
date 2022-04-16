@@ -9,7 +9,7 @@
         <div class="row content-wrapper justify-content-center">
           <div class="col-lg-4 mbr-form">
             <!--Formbuilder Form-->
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="handleLogin">
               <div class="row">
                 <div
                   hidden="hidden"
@@ -77,10 +77,6 @@
 </template>
 
 <script>
-import "../assets/bootstrap/css/bootstrap.min.css";
-
-import "../assets/mobirise/css/mbr-additional.css";
-import "../assets/theme/css/style.css";
 import axios from "axios";
 
 export default {
@@ -91,11 +87,42 @@ export default {
       password: "",
     };
   },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+  created() {
+    if (this.loggedIn) {
+      this.$router.push("/loggedinview");
+    }
+  },
+
   methods: {
-    handleSubmit() {
+    handleLogin(user) {
+      console.log(user);
+      console.log(user.email);
+      console.log(user.password);
+      console.log("test teste test");
       console.log("submitted", this.email, this.password);
+      this.loading = true;
+      this.$store.dispatch("auth/login", user).then(
+        () => {
+          this.$router.push("/loggedinview");
+        },
+        (error) => {
+          this.loading = false;
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+        }
+      );
+
       axios
-        .post("/api/login", {
+        .post("/api/auth/signin", {
           email: this.email,
           password: this.password,
         })

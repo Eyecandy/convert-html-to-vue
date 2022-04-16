@@ -112,10 +112,6 @@
 </template>
 
 <script>
-import "../assets/bootstrap/css/bootstrap.min.css";
-
-import "../assets/mobirise/css/mbr-additional.css";
-import "../assets/theme/css/style.css";
 import axios from "axios";
 
 export default {
@@ -136,7 +132,7 @@ export default {
         this.matchingPassword
       );
       axios
-        .post("/api/register", {
+        .post("/api/buyer/register", {
           email: this.email,
           password: this.password,
           matchingPassword: this.matchingPassword,
