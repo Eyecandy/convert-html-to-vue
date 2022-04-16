@@ -4,6 +4,7 @@ import Policy1 from "../views/PolicyAgreement.vue";
 import LoginView from "../views/LoginView.vue";
 import HomeView from "../views/HomeView.vue";
 import profilepage from "../views/ProfilePage.vue";
+import CarBrandSelector from "../views/CarBrandSelectorView.vue"
 
 
 const routes = [
@@ -29,7 +30,9 @@ const routes = [
     component: Policy1,
   },
 
-  { name: "profilepage", path: "/profilepage", component: profilepage }
+  { name: "profilepage", path: "/profilepage", component: profilepage },
+  { name: "carBrandSelector", path: "/configure-carbrand", component: CarBrandSelector }
+
 ];
 
 const router = createRouter({
@@ -39,7 +42,7 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register', '/', '/login2'];
+  const publicPages = ['/login', '/register', '/', '/configure/carbrand'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
   if (authRequired && !loggedIn) {
