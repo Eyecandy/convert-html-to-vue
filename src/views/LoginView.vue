@@ -94,23 +94,20 @@ export default {
   },
   created() {
     if (this.loggedIn) {
-      this.$router.push("/loggedinview");
+      this.$router.push("/profilepage");
     }
   },
 
   methods: {
-    handleLogin(user) {
-      console.log(user);
-      console.log(user.email);
-      console.log(user.password);
-      console.log("test teste test");
-      console.log("submitted", this.email, this.password);
+    handleLogin() {
+      const user = { email: this.email, password: this.password };
       this.loading = true;
       this.$store.dispatch("auth/login", user).then(
         () => {
-          this.$router.push("/loggedinview");
+          this.$router.push("/profilepage");
         },
         (error) => {
+          console.log("error");
           this.loading = false;
           this.message =
             (error.response &&
@@ -120,14 +117,6 @@ export default {
             error.toString();
         }
       );
-
-      axios
-        .post("/api/auth/signin", {
-          email: this.email,
-          password: this.password,
-        })
-        .then((Response) => console.log(Response))
-        .catch((Response) => console.log(Response));
     },
   },
 };

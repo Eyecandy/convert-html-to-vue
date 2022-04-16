@@ -3,8 +3,7 @@ import RegistrationView from "../views/RegistrationView.vue";
 import Policy1 from "../views/PolicyAgreement.vue";
 import LoginView from "../views/LoginView.vue";
 import HomeView from "../views/HomeView.vue";
-import LoginView2 from "../components/LoginComponent.vue";
-import loggedInView from "../views/LoggedInView.vue";
+import profilepage from "../views/ProfilePage.vue";
 
 
 const routes = [
@@ -29,8 +28,8 @@ const routes = [
     path: "/policy1",
     component: Policy1,
   },
-  { name: "login2", path: "/login2", component: LoginView2 },
-  { name: "loggedinview", path: "/loggedin", component: loggedInView }
+
+  { name: "profilepage", path: "/profilepage", component: profilepage }
 ];
 
 const router = createRouter({
@@ -43,6 +42,9 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['/login', '/register', '/', '/login2'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
+  console.log("router.beforeEach ");
+  console.log("authRequired: " + authRequired);
+  console.log("loggedIn: " + loggedIn)
   if (authRequired && !loggedIn) {
     next('/login');
   } else {
