@@ -33,6 +33,7 @@
                   class="col-lg-12 col-md-12 col-sm-12 form-group"
                   data-for="car-brand"
                 >
+                  <div>{{ carbrands }}</div>
                   <select
                     name="car-brand"
                     data-form-field="car-brand"
@@ -115,8 +116,18 @@
 
 <script>
 import BuyerNavBar from "./BuyerNavBar.vue";
-
+import RequestService from "../../services/request.service.js";
+import authHeader, { AuthHead } from "../../services/auth-header.js";
+import axios from "axios";
 export default {
   components: { BuyerNavBar },
+  data() {
+    return { carbrands: [2] };
+  },
+  mounted() {
+    RequestService.sendAuthorizedRequest("/api/buyer/carbrands").then(
+      (response) => (this.carbrands = response)
+    );
+  },
 };
 </script>
