@@ -10,8 +10,7 @@
         <div class="row content-wrapper justify-content-center">
           <div class="col-lg-4 mbr-form">
             <form
-              action="page1.html"
-              method="POST"
+              @submit.prevent="handleSubmit"
               class="mbr-form form-with-styler"
             >
               <div class="row">
@@ -26,71 +25,99 @@
               <div class="dragArea row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                   <p class="mbr-text mbr-fonts-style mb-4 display-7">
-                    Last opp din bilkonfigurasjon
+                    Velg ditt bilmerke
                   </p>
                 </div>
-                <div
-                  class="col-lg-12 col-md-12 col-sm-12 form-group"
-                  data-for="car-brand"
-                >
-                  <div>{{ carbrands }}</div>
+                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                   <select
-                    name="car-brand"
-                    data-form-field="car-brand"
+                    v-model="selectedCarbrand"
                     class="form-control form-select display-7"
-                    id="car-brand-form4-b"
                   >
-                    <option value="Velg ditt bilmerke">
-                      Velg ditt bilmerke
+                    <option
+                      v-for="carbrand in carbrands"
+                      :key="carbrand.id"
+                      :value="carbrand.id"
+                    >
+                      {{ carbrand.name }}
                     </option>
-                    <option value="Alfa Romeo">Alfa Romeo</option>
-                    <option value="Audi">Audi</option>
-                    <option value="BMW">BMW</option>
-                    <option value="BYD">BYD</option>
-                    <option value="Chevrolet">Chevrolet</option>
-                    <option value="Chrystler">Chrystler</option>
-                    <option value="Citroen">Citroen</option>
-                    <option value="Cupra">Cupra</option>
-                    <option value="DS">DS</option>
-                    <option value="Dacia">Dacia</option>
-                    <option value="Dodge">Dodge</option>
-                    <option value="Fiat">Fiat</option>
-                    <option value="Fisker">Fisker</option>
-                    <option value="Ford">Ford</option>
-                    <option value="GMC">GMC</option>
-                    <option value="Honda">Honda</option>
-                    <option value="Hongqi">Hongqi</option>
-                    <option value="Hummer">Hummer</option>
-                    <option value="Hyundai">Hyundai</option>
-                    <option value="Infiniti">Infiniti</option>
-                    <option value="Isuzu">Isuzu</option>
-                    <option value="Jepp">Jepp</option>
-                    <option value="Kia">Kia</option>
-                    <option value="Land Rover">Land Rover</option>
-                    <option value="Lexus">Lexus</option>
-                    <option value="MG">MG</option>
-                    <option value="Mini">Mini</option>
-                    <option value="Maxus">Maxus</option>
-                    <option value="Mazda">Mazda</option>
-                    <option value="Mercedes-Benz">Mercedes-Benz</option>
-                    <option value="Mitsubishi">Mitsubishi</option>
-                    <option value="Nissan">Nissan</option>
-                    <option value="Opel">Opel</option>
-                    <option value="Peugeot">Peugeot</option>
-                    <option value="Polestar">Polestar</option>
-                    <option value="Renault">Renault</option>
-                    <option value="Rover">Rover</option>
-                    <option value="Seat">Seat</option>
-                    <option value="Skoda">Skoda</option>
-                    <option value="SsangYong">SsangYong</option>
-                    <option value="Subaru">Subaru</option>
-                    <option value="Suzuki">Suzuki</option>
-                    <option value="Toyota">Toyota</option>
-                    <option value="Volkswagen">Volkswagen</option>
-                    <option value="Volvo">Volvo</option>
-                    <option value="Xpeng">Xpeng</option>
                   </select>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12 form-group"></div>
+
+                  <div class="dragArea row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <p class="mbr-text mbr-fonts-style mb-4 display-7">
+                        Dekktype
+                      </p>
+                    </div>
+                    <div
+                      class="col-lg-12 col-md-12 col-sm-12 form-group"
+                      data-for="tyres"
+                    >
+                      <select
+                        v-model="selectedTireOption"
+                        class="form-control form-select display-7"
+                      >
+                        <option
+                          v-for="tireOption in tireOptions"
+                          :key="tireOption.id"
+                          :value="tireOption.id"
+                        >
+                          {{ tireOption.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12 form-group"></div>
+
+                  <div class="dragArea row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <p class="mbr-text mbr-fonts-style mb-4 display-7">
+                        Legg til din bilkonfigurasjon - velg format
+                      </p>
+                    </div>
+                    <div
+                      class="col-lg-12 col-md-12 col-sm-12 form-group"
+                      data-for="tyres"
+                    >
+                      <select
+                        @change="onChange($event)"
+                        v-model="selectedConfigMethod"
+                        class="form-control form-select display-7"
+                      >
+                        <option
+                          v-for="configMethod in configMethods"
+                          :key="configMethod.id"
+                          :value="configMethod.id"
+                        >
+                          {{ configMethod.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                  <input
+                    v-if="LinkFieldVisible"
+                    type="text"
+                    name="upload-2"
+                    placeholder="Lim inn lenke til din bilkonfigurasjon"
+                    data-form-field="upload-2"
+                    class="form-control display-7"
+                    v-model="UrlLink"
+                  />
+
+                  <div>
+                    <input
+                      v-if="PdfUploadVisible"
+                      type="file"
+                      @change="uploadFile"
+                      ref="file"
+                    />
+                  </div>
+                </div>
+
                 <div class="col-12 col-md-auto mbr-section-btn">
                   <button type="submit" class="w-100 btn btn-primary display-4">
                     Velg
@@ -122,12 +149,42 @@ import axios from "axios";
 export default {
   components: { BuyerNavBar },
   data() {
-    return { carbrands: [2] };
+    return {
+      carbrands: [],
+      selectedCarbrand: "",
+      tireOptions: [],
+      selectedTireOption: "",
+      configMethods: "",
+      selectedConfigMethod: "",
+      LinkFieldVisible: false,
+      PdfUploadVisible: false,
+      UrlLink: "",
+      file: "",
+    };
   },
   mounted() {
-    RequestService.sendAuthorizedRequest("/api/buyer/carbrands").then(
-      (response) => (this.carbrands = response)
+    RequestService.sendAuthorizedGetRequest("/api/buyer/carbrands").then(
+      (response) => (
+        (this.carbrands = response[0]),
+        (this.tireOptions = response[1]),
+        (this.configMethods = response[2]),
+        console.log(response)
+      )
     );
+  },
+  methods: {
+    handleSubmit() {
+      console.log(this.selectedCarbrand);
+      console.log(this.selectedTireOption);
+      console.log(this.LinkFieldVisible);
+    },
+    onChange(event) {
+      this.LinkFieldVisible = this.selectedConfigMethod == 1;
+      this.PdfUploadVisible = this.selectedConfigMethod == 2;
+    },
+    uploadFile() {
+      console.log(this.$refs.file.files[0]);
+    },
   },
 };
 </script>

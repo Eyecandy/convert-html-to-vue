@@ -132,7 +132,7 @@ export default {
         this.matchingPassword
       );
       axios
-        .post("/api/buyer/register", {
+        .post("/api/auth/register", {
           email: this.email,
           password: this.password,
           matchingPassword: this.matchingPassword,

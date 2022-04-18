@@ -3,10 +3,10 @@ import authHeader from './auth-header';
 
 const API_URL = 'http://localhost:8080/api/';
 class RequestService {
-    sendAuthorizedRequest(urlSuffix) {
+    sendAuthorizedGetRequest(urlSuffix) {
         const sendGetRequest =
             axios
-                .get("/api/buyer/carbrands", {
+                .get(urlSuffix, {
                     headers: {
                         Authorization: authHeader().Authorization,
                     },
