@@ -15,13 +15,34 @@ class RequestService {
                         return Promise.resolve(response.data);
                     },
                     error => {
-                        commit('loginFailure');
                         return Promise.reject(error);
                     }
                 );
 
 
         return sendGetRequest;
+    }
+
+    sendAuthorizedPostRequest(urlSuffix, data) {
+
+        const sendPostRequest =
+            axios
+                .post(urlSuffix, data, {
+                    headers: {
+                        Authorization: authHeader().Authorization
+                    }
+                }).then(
+                    response => {
+                        return Promise.resolve(response.data);
+                    },
+                    error => {
+                        return Promise.reject(error);
+                    }
+                );
+
+
+        return sendPostRequest;
+
     }
 
 

@@ -36,7 +36,7 @@
                     <option
                       v-for="carbrand in carbrands"
                       :key="carbrand.id"
-                      :value="carbrand.id"
+                      :value="carbrand"
                     >
                       {{ carbrand.name }}
                     </option>
@@ -61,7 +61,7 @@
                         <option
                           v-for="tireOption in tireOptions"
                           :key="tireOption.id"
-                          :value="tireOption.id"
+                          :value="tireOption"
                         >
                           {{ tireOption.name }}
                         </option>
@@ -89,7 +89,7 @@
                         <option
                           v-for="configMethod in configMethods"
                           :key="configMethod.id"
-                          :value="configMethod.id"
+                          :value="configMethod"
                         >
                           {{ configMethod.name }}
                         </option>
@@ -115,6 +115,29 @@
                       @change="uploadFile"
                       ref="file"
                     />
+                  </div>
+                </div>
+
+                <div class="dragArea row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <p class="mbr-text mbr-fonts-style mb-4 display-7">Fylke</p>
+                  </div>
+                  <div
+                    class="col-lg-12 col-md-12 col-sm-12 form-group"
+                    data-for="tyres"
+                  >
+                    <select
+                      v-model="selectedCounty"
+                      class="form-control form-select display-7"
+                    >
+                      <option
+                        v-for="county in counties"
+                        :key="county.id"
+                        :value="county"
+                      >
+                        {{ county.name }}
+                      </option>
+                    </select>
                   </div>
                 </div>
 
@@ -146,44 +169,82 @@ import BuyerNavBar from "./BuyerNavBar.vue";
 import RequestService from "../../services/request.service.js";
 import authHeader, { AuthHead } from "../../services/auth-header.js";
 import axios from "axios";
+
 export default {
   components: { BuyerNavBar },
   data() {
     return {
       carbrands: [],
-      selectedCarbrand: "",
+
       tireOptions: [],
-      selectedTireOption: "",
-      configMethods: "",
-      selectedConfigMethod: "",
+      counties: [],
+
+      configMethods: [],
+
       LinkFieldVisible: false,
       PdfUploadVisible: false,
+
       UrlLink: "",
       file: "",
+
+      selectedConfigMethod: "",
+      selectedCarbrand: "",
+      selectedTireOption: "",
+      selectedCounty: "",
     };
   },
   mounted() {
-    RequestService.sendAuthorizedGetRequest("/api/buyer/carbrands").then(
+    RequestService.sendAuthorizedGetRequest(
+      "/api/buyer/pricerequest/dropdownvalues"
+    ).then(
       (response) => (
         (this.carbrands = response[0]),
         (this.tireOptions = response[1]),
         (this.configMethods = response[2]),
-        console.log(response)
+        (this.counties = response[3])
       )
     );
   },
   methods: {
     handleSubmit() {
-      console.log(this.selectedCarbrand);
-      console.log(this.selectedTireOption);
-      console.log(this.LinkFieldVisible);
+      const priceRequestDto = JSON.stringify({
+        carBrand: this.selectedCarbrand,
+        tireOption: this.selectedTireOption,
+        link: this.UrlLink,
+        county: this.selectedCounty,
+        configMethod: this.selectedConfigMethod,
+      });
+
+      var formData = new FormData();
+      formData.append("file", this.file);
+
+      formData.append(
+        "priceRequestDTO",
+        new Blob([priceRequestDto], {
+          type: "application/json",
+        })
+      );
+
+      axios
+        .post("api/buyer/pricerequest/create", formData, {
+          headers: {
+            Authorization: authHeader().Authorization,
+          },
+        })
+        .then((response) => {
+          console.log("SUCCESS");
+          return response.data;
+        })
+        .catch(() => {
+          console.log("ERROR");
+        });
     },
     onChange(event) {
-      this.LinkFieldVisible = this.selectedConfigMethod == 1;
-      this.PdfUploadVisible = this.selectedConfigMethod == 2;
+      this.LinkFieldVisible = this.selectedConfigMethod.id == 1;
+      this.PdfUploadVisible = this.selectedConfigMethod.id == 2;
     },
     uploadFile() {
-      console.log(this.$refs.file.files[0]);
+      this.file = this.$refs.file.files[0];
     },
   },
 };
