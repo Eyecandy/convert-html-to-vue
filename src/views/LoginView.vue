@@ -92,7 +92,7 @@ export default {
   },
   created() {
     if (this.loggedIn) {
-      this.$router.push("/profilepage");
+      this.$router.push("/configure-carbrand");
     }
   },
 
@@ -102,7 +102,7 @@ export default {
       this.loading = true;
       this.$store.dispatch("auth/login", user).then(
         () => {
-          this.$router.push("/profilepage");
+          this.$router.push("/configure-carbrand");
         },
         (error) => {
           console.log("error");

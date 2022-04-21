@@ -123,6 +123,7 @@ export default {
       matchingPassword: "",
     };
   },
+
   methods: {
     handleSubmit() {
       console.log(
@@ -137,8 +138,13 @@ export default {
           password: this.password,
           matchingPassword: this.matchingPassword,
         })
-        .then((Response) => console.log(Response))
+        .then((Response) => this.$router.push("/login"))
         .catch((Response) => console.log(Response));
+    },
+    created() {
+      if (this.loggedIn) {
+        this.$router.push("/configure-carbrand");
+      }
     },
   },
 };
