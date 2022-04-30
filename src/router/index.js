@@ -4,7 +4,9 @@ import Policy1 from "../views/PolicyAgreement.vue";
 import LoginView from "../views/LoginView.vue";
 import HomeView from "../views/HomeView.vue";
 import profilepage from "../views/ProfilePage.vue";
-import CarBrandSelector from "../views/CarBrandSelectorView.vue"
+import CarBrandSelector from "../views/CarBrandSelectorView.vue";
+import BuyerMyRequests from "../views/MyRequestView.vue";
+
 
 
 const routes = [
@@ -31,7 +33,11 @@ const routes = [
   },
 
   { name: "profilepage", path: "/profilepage", component: profilepage },
-  { name: "carBrandSelector", path: "/configure-carbrand", component: CarBrandSelector }
+  { name: "carBrandSelector", path: "/configure-carbrand", component: CarBrandSelector },
+
+  { name: "myrequests", path: "/buyer/myrequests", component: BuyerMyRequests }
+
+
 
 ];
 

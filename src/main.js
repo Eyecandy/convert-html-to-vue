@@ -7,11 +7,13 @@ import "./assets/bootstrap/css/bootstrap-reboot.min.css"
 import "./assets/mobirise/css/mbr-additional.css";
 import "./assets/theme/css/style.css";
 import "./assets/dropdown/css/style.css";
-import { navbardropdown } from "./assets/dropdown/js/navbar-dropdown"
+
+
 
 
 const app = createApp(App);
 app.use(router);
 app.use(store);
 app.mount("#app");
+
 

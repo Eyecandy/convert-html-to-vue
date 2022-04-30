@@ -56,8 +56,10 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link link text-white display-4" href="#"
-              >Mine forespørsler</a
+            <router-link
+              class="nav-link link text-white display-4"
+              :to="'/buyer/myrequests'"
+              >Mine forespørsler</router-link
             >
           </li>
           <li class="nav-item">
