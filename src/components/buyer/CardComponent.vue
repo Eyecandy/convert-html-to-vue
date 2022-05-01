@@ -30,8 +30,8 @@
               </p>
             </div>
 
-            <div width="50px">
-              <a href="page5-2.html" class="btn btn-success item-btn display-4"
+            <div width="50px" @click="downloadFile(priceRequestId)">
+              <a class="btn btn-success item-btn display-4"
                 ><span
                   class="
                     imind-bird-deliveringletter
@@ -66,7 +66,6 @@
             <div class="col-12 col-md-auto mbr-section-btn">
               <button
                 :disabled="!isDeadlineReached ? '' : disabled"
-                type="submit"
                 class="w-100 btn btn-primary display-4"
               >
                 Se den beste prisen
@@ -80,6 +79,11 @@
 </template>
 
 <script>
+import RequestService from "../../services/request.service.js";
+
+import authHeader, { AuthHead } from "../../services/auth-header.js";
+import download from "downloadjs";
+import axios from "axios";
 export default {
   name: "CardComponent",
 
@@ -93,6 +97,45 @@ export default {
     isDeadlineReached: Boolean,
     numSellerTotal: Number,
     numSellerAnswered: Number,
+    priceRequestId: Number,
+    configUrl: String,
+  },
+
+  methods: {
+    getFile(pricerequestId) {
+      console.log(configUrl);
+      var url = `/api/buyer/pricerequest/getfile/${pricerequestId}`;
+      RequestService.sendAuthorizedGetRequestForFileDownload(url).then(
+        console.log("success")
+      );
+    },
+    downloadFile(pricerequestId) {
+      var url = `/api/buyer/pricerequest/getfile/${pricerequestId}`;
+
+      if (this.configMethod === "PDF") {
+        axios
+          .get(url, {
+            headers: {
+              Authorization: authHeader().Authorization,
+            },
+            responseType: "blob", // had to add this one here
+          })
+          .then((response) => {
+            const blob = new Blob([response.data], { type: "application/pdf" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+
+            link.click();
+            window.open(link.href);
+            URL.revokeObjectURL(link.href);
+          })
+          .catch(console.error);
+      } else {
+        console.log(this.configUrl);
+
+        window.location.href = this.configUrl;
+      }
+    },
   },
 };
 </script>

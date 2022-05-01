@@ -38,6 +38,8 @@
                           :isDeadlineReached="pr.deadLineReached"
                           :numSellerTotal="pr.numRetailersSentTo"
                           :numSellerAnswered="pr.numRetailersAnswered"
+                          :priceRequestId="pr.id"
+                          :configUrl="pr.configuration"
                         >
                         </CardComponent>
                       </div>

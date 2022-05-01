@@ -23,6 +23,26 @@ class RequestService {
         return sendGetRequest;
     }
 
+    sendAuthorizedGetRequestForFileDownload(urlSuffix) {
+        const sendGetRequest =
+            axios
+                .get(urlSuffix, {
+                    headers: {
+                        Authorization: authHeader().Authorization,
+                    }, responseType: 'blob'
+                }).then(
+                    response => {
+                        window.open(URL.createObjectURL(response.data));
+                    },
+                    error => {
+                        return Promise.reject(error);
+                    }
+                );
+
+
+        return sendGetRequest;
+    }
+
     sendAuthorizedPostRequest(urlSuffix, data) {
 
         const sendPostRequest =
