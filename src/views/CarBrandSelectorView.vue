@@ -230,7 +230,7 @@ export default {
         })
         .then((response) => {
           console.log("SUCCESS");
-          return response.data;
+          this.$router.push("/buyer/myrequests");
         })
         .catch(() => {
           console.log("ERROR");

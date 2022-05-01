@@ -1,12 +1,25 @@
 <template>
   <section
+    v-cloak
     data-bs-version="5.1"
     class="form4 cid-t2pwi0gPN4 mbr-fullscreen"
     id="form4-b"
   >
     <div class="container">
       <div class="outer-container">
-        <h4>Mine forespørsler</h4>
+        <div>
+          <div class="col-8 col-md-auto mbr-section-btn" w>
+            <button
+              @click.prevent="createNewPriceRequest()"
+              class="w-100 btn btn-primary display-4"
+            >
+              Ny forespørsel
+            </button>
+          </div>
+        </div>
+        <div v-if="isPriceRequestsEmpty()" class="infoline">
+          <h4>Du har ingen forspørsler</h4>
+        </div>
         <div class="row justify-content-center">
           <div class="col-lg-12 col-md-12 col1 align-left my-auto">
             <div class="row justify-content-center">
@@ -16,9 +29,15 @@
                     <h5 class="card-text mbr-fonts-style display-4">
                       <div v-for="pr in priceRequests" v-bind:key="pr.id">
                         <CardComponent
-                          :carBrand="pr.carBrand.name"
+                          :carBrand="pr.carBrandName"
                           :county="pr.county.name"
-                          :deadline="pr.deadline"
+                          :deadlineDate="pr.deadlineDatePretty"
+                          :deadlineTime="pr.deadlineTimePretty"
+                          :configMethod="pr.configMethod.name"
+                          :tireOption="pr.tireOption.name"
+                          :isDeadlineReached="pr.deadLineReached"
+                          :numSellerTotal="pr.numRetailersSentTo"
+                          :numSellerAnswered="pr.numRetailersAnswered"
                         >
                         </CardComponent>
                       </div>
@@ -51,6 +70,16 @@ export default {
       "/api/buyer/pricerequest/list_price_request"
     ).then((response) => (this.priceRequests = response));
   },
+
+  methods: {
+    isPriceRequestsEmpty() {
+      console.log(this.priceRequests.length == 0);
+      return this.priceRequests.length == 0;
+    },
+    createNewPriceRequest() {
+      this.$router.push("/configure-carbrand");
+    },
+  },
 };
 </script>
 
@@ -58,5 +87,21 @@ export default {
 .outer-container {
   position: relative;
   top: 80px;
+}
+
+.headline {
+  top: -300px;
+  right: -200px;
+  position: relative;
+}
+
+.infoline {
+  top: -400;
+  right: -500px;
+  position: relative;
+}
+
+.flexcontainer {
+  display: flex;
 }
 </style>

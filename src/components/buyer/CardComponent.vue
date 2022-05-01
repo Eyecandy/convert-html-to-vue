@@ -9,23 +9,70 @@
             height="20"
           />
         </div>
+        <div class="box">
+          <div>
+            <div class="item-content">
+              <h5 class="item-title mbr-fonts-style display-5">
+                {{ carBrand }}
+              </h5>
+              <br />
+              <br />
 
-        <div class="item-content">
-          <h5 class="item-title mbr-fonts-style display-5">{{ carBrand }}</h5>
+              <p class="mbr-text mbr-fonts-style mt-3 display-7">
+                Leveringssted: {{ county }}
 
-          <p class="mbr-text mbr-fonts-style mt-3 display-7">
-            Leveringssted: {{ county }}
-            <br />
-            Tidsfrist: {{ deadline }}
-          </p>
-        </div>
-        <div width="50px">
-          <a href="page5-2.html" class="btn btn-success item-btn display-4"
-            ><span
-              class="imind-bird-deliveringletter mbr-iconfont mbr-iconfont-btn"
-            ></span
-            >Les mer og gi tilbud&nbsp;</a
-          >
+                <br />
+                <br />
+                <br />
+                Dekkvalg: {{ tireOption }}
+                <br />
+                <br />
+              </p>
+            </div>
+
+            <div width="50px">
+              <a href="page5-2.html" class="btn btn-success item-btn display-4"
+                ><span
+                  class="
+                    imind-bird-deliveringletter
+                    mbr-iconfont mbr-iconfont-btn
+                  "
+                ></span
+                >Se din konfigurasjon&nbsp;</a
+              >
+            </div>
+          </div>
+          <div>
+            <div class="item-content">
+              <p class="mbr-text mbr-fonts-style mt-3 display-7">
+                Antall forhandlere som har mottat forespørsel:
+                {{ numSellerTotal }}
+                <br />
+                <br />
+                <br />
+                Antall svar fra forhandlere så langt: {{ numSellerAnswered }}
+                <br />
+                <br />
+                <br />
+
+                Du vil kunne se den beste prisen: Kl: {{ deadlineTime }} - Dato:
+                {{ deadlineDate }}
+                <br />
+                <br />
+                <br />
+              </p>
+            </div>
+
+            <div class="col-12 col-md-auto mbr-section-btn">
+              <button
+                :disabled="!isDeadlineReached ? '' : disabled"
+                type="submit"
+                class="w-100 btn btn-primary display-4"
+              >
+                Se den beste prisen
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -39,7 +86,13 @@ export default {
   props: {
     carBrand: String,
     county: String,
-    deadline: String,
+    deadlineDate: String,
+    deadlineTime: String,
+    configMethod: String,
+    tireOption: String,
+    isDeadlineReached: Boolean,
+    numSellerTotal: Number,
+    numSellerAnswered: Number,
   },
 };
 </script>
@@ -47,10 +100,19 @@ export default {
 
 <style scoped>
 .margin {
-  margin-top: 60px;
-  margin-bottom: 60px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   border: 1px solid rgb(75, 75, 82);
   border-radius: 5px;
-  height: 200px;
+  height: 300px;
+}
+.box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 2em;
+}
+
+.box :first-child {
+  align-self: center;
 }
 </style>
