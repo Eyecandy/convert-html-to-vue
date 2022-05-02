@@ -143,7 +143,7 @@ export default {
     },
     created() {
       if (this.loggedIn) {
-        this.$router.push("/configure-carbrand");
+        this.$router.push("/buyer/configure-carbrand");
       }
     },
   },

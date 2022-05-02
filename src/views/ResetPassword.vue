@@ -9,7 +9,7 @@
         <div class="row content-wrapper justify-content-center">
           <div class="col-lg-4 mbr-form">
             <!--Formbuilder Form-->
-            <form @submit.prevent="handleLogin">
+            <form @submit.prevent="resetPassword">
               <div class="row">
                 <div
                   hidden="hidden"
@@ -22,11 +22,11 @@
               <div class="dragArea row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                   <h1 class="mbr-section-title mb-3 display-2">
-                    Logg Inn Bruker
+                    Tilbakestill passord
                   </h1>
                 </div>
                 <div
-                  class="col-lg-8 col-md-12 col-sm-12 form-group"
+                  class="col-lg-12 col-md-12 col-sm-12 form-group"
                   data-for="Brukernavn"
                 >
                   <input
@@ -38,29 +38,11 @@
                     v-model="email"
                   />
                 </div>
-                <div
-                  class="col-lg-8 col-md-12 col-sm-12 form-group"
-                  data-for="password"
-                >
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Skriv inn ditt Passord"
-                    v-model="password"
-                    class="form-control display-7"
-                    required="required"
-                  />
-                </div>
 
-                <div class="col-12 col-md-auto mbr-section-btn">
+                <div class="col-8 col-md-auto mbr-section-btn">
                   <button type="submit" class="w-100 btn btn-primary display-4">
-                    Logg Inn Bruker
+                    Få tilsendt nytt passord på mail
                   </button>
-                </div>
-                <div>
-                  <router-link :to="'/resetpassword'"
-                    >Glemt passord?</router-link
-                  >
                 </div>
               </div>
             </form>
@@ -82,6 +64,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "LoginView",
   data() {
@@ -97,29 +80,18 @@ export default {
   },
   created() {
     if (this.loggedIn) {
-      this.$router.push("/buyer/configure-carbrand");
+      this.$router.push("/buyer/myrequests");
     }
   },
 
   methods: {
-    handleLogin() {
-      const user = { email: this.email, password: this.password };
-      this.loading = true;
-      this.$store.dispatch("auth/login", user).then(
-        () => {
-          this.$router.push("/buyer/configure-carbrand");
-        },
-        (error) => {
-          console.log("error");
-          this.loading = false;
-          this.message =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-        }
-      );
+    resetPassword() {
+      axios
+        .post("/api/auth/resetpassword", {
+          email: this.email,
+        })
+        .then((Response) => this.$router.push("/login"))
+        .catch((Response) => console.log(Response));
     },
   },
 };

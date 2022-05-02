@@ -6,6 +6,7 @@ import HomeView from "../views/HomeView.vue";
 import profilepage from "../views/ProfilePage.vue";
 import CarBrandSelector from "../views/CarBrandSelectorView.vue";
 import BuyerMyRequests from "../views/MyRequestView.vue";
+import ResetPassword from "../views/ResetPassword.vue";
 
 
 
@@ -33,9 +34,13 @@ const routes = [
   },
 
   { name: "profilepage", path: "/profilepage", component: profilepage },
-  { name: "carBrandSelector", path: "/configure-carbrand", component: CarBrandSelector },
+  { name: "carBrandSelector", path: "/buyer/configure-carbrand", component: CarBrandSelector },
 
-  { name: "myrequests", path: "/buyer/myrequests", component: BuyerMyRequests }
+  { name: "myrequests", path: "/buyer/myrequests", component: BuyerMyRequests },
+
+  { name: "resetpassword", path: "/resetpassword", component: ResetPassword },
+
+
 
 
 
@@ -48,7 +53,7 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register', '/', '/configure/carbrand'];
+  const publicPages = ['/login', '/register', '/', '/resetpassword', '/resetpassword2'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
   if (authRequired && !loggedIn) {

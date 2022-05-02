@@ -79,7 +79,7 @@ export default {
       return this.priceRequests.length == 0;
     },
     createNewPriceRequest() {
-      this.$router.push("/configure-carbrand");
+      this.$router.push("/buyer/configure-carbrand");
     },
   },
 };
