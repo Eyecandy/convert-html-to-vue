@@ -78,9 +78,7 @@
             >
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link link text-white display-4" href="#">Logg ut</a>
-          </li>
+          <logout></logout>
           <li class="nav-item">
             <a class="nav-link link text-white display-4" href="#"> </a>
           </li>
@@ -89,3 +87,14 @@
     </nav>
   </section>
 </template>
+
+<script>
+import logout from "../logoutComponent.vue";
+
+export default {
+  components: { logout },
+  mounted() {
+    console.log(localStorage.getItem("auth"));
+  },
+};
+</script>

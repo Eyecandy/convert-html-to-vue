@@ -85,7 +85,7 @@ import authHeader, { AuthHead } from "../../services/auth-header.js";
 import download from "downloadjs";
 import axios from "axios";
 export default {
-  name: "CardComponent",
+  name: "CardComponentBuyer",
 
   props: {
     carBrand: String,
