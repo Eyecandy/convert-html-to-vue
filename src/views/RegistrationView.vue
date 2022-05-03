@@ -113,7 +113,7 @@
 
 <script>
 import axios from "axios";
-
+import RedirectService from "../services/redirect-service.js";
 export default {
   name: "RegistrationView",
   data() {
@@ -122,6 +122,18 @@ export default {
       password: "",
       matchingPassword: "",
     };
+  },
+
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+
+  created() {
+    if (this.loggedIn) {
+      this.$router.push(RedirectService.getRedirectUrl());
+    }
   },
 
   methods: {
@@ -133,18 +145,13 @@ export default {
         this.matchingPassword
       );
       axios
-        .post("/api/auth/register", {
+        .post("/api/auth/signup", {
           email: this.email,
           password: this.password,
           matchingPassword: this.matchingPassword,
         })
         .then((Response) => this.$router.push("/login"))
         .catch((Response) => console.log(Response));
-    },
-    created() {
-      if (this.loggedIn) {
-        this.$router.push("/buyer/configure-carbrand");
-      }
     },
   },
 };

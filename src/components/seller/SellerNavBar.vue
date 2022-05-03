@@ -51,15 +51,17 @@
           data-app-modern-menu="true"
         >
           <li class="nav-item">
-            <a class="nav-link link text-white display-4" href="#"
-              >Min profil</a
+            <router-link
+              class="nav-link link text-white display-4"
+              :to="'/seller/home'"
+              >Min Side</router-link
             >
           </li>
           <li class="nav-item">
             <router-link
               class="nav-link link text-white display-4"
-              :to="'/buyer/myrequests'"
-              >Sendte forespørsler</router-link
+              :to="'/seller/requests'"
+              >Mine forespørsler</router-link
             >
           </li>
           <li class="nav-item">
@@ -76,7 +78,9 @@
             >
           </li>
 
-          <logout></logout>
+          <li class="nav-item">
+            <a class="nav-link link text-white display-4" href="#">Logg ut</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link link text-white display-4" href="#"> </a>
           </li>
@@ -85,14 +89,3 @@
     </nav>
   </section>
 </template>
-
-<script>
-import logout from "../logoutComponent.vue";
-
-export default {
-  components: { logout },
-  mounted() {
-    console.log(localStorage.getItem("auth"));
-  },
-};
-</script>

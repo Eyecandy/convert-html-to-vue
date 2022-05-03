@@ -56,23 +56,20 @@
 </template>
 
 <script>
-import CardComponent from "../components/buyer/CardComponent.vue";
-import RequestService from "../services/request.service.js";
-import authHeader, { AuthHead } from "../services/auth-header.js";
+import CardComponent from "../../components/buyer/CardComponent.vue";
+import RequestService from "../../services/request.service.js";
+import authHeader, { AuthHead } from "../../services/auth-header.js";
 export default {
   components: { CardComponent },
   component: [CardComponent],
-
   data() {
     return { priceRequests: [] };
   },
-
   mounted() {
     RequestService.sendAuthorizedGetRequest(
       "/api/buyer/pricerequest/list_price_request"
     ).then((response) => (this.priceRequests = response));
   },
-
   methods: {
     isPriceRequestsEmpty() {
       console.log(this.priceRequests.length == 0);
@@ -90,19 +87,16 @@ export default {
   position: relative;
   top: 80px;
 }
-
 .headline {
   top: -300px;
   right: -200px;
   position: relative;
 }
-
 .infoline {
   top: -400;
   right: -500px;
   position: relative;
 }
-
 .flexcontainer {
   display: flex;
 }

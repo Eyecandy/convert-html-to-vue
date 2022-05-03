@@ -223,7 +223,7 @@ export default {
       );
 
       axios
-        .post("api/buyer/pricerequest/create", formData, {
+        .post("/api/buyer/pricerequest/create", formData, {
           headers: {
             Authorization: authHeader().Authorization,
           },

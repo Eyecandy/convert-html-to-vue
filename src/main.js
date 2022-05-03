@@ -7,6 +7,7 @@ import "./assets/bootstrap/css/bootstrap-reboot.min.css"
 import "./assets/mobirise/css/mbr-additional.css";
 import "./assets/theme/css/style.css";
 import "./assets/dropdown/css/style.css";
+import "./assets/mobirise/css/mbr-additional.css";
 
 
 

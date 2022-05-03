@@ -5,8 +5,16 @@ import LoginView from "../views/LoginView.vue";
 import HomeView from "../views/HomeView.vue";
 import profilepage from "../views/ProfilePage.vue";
 import CarBrandSelector from "../views/CarBrandSelectorView.vue";
-import BuyerMyRequests from "../views/MyRequestView.vue";
+import BuyerMyRequests from "../views/buyer/MyRequestView.vue";
 import ResetPassword from "../views/ResetPassword.vue";
+import RetailerRegistration from "../views/RetailerRegistration.vue";
+import HomeSeller from "../views/seller/HomeView.vue"
+
+import MyOffers from "../views/seller/MyOffers.vue";
+import SellerRequests from "../views/seller/MyRequests.vue"
+import { auth } from "@/store/auth.module";
+
+
 
 
 
@@ -40,6 +48,14 @@ const routes = [
 
   { name: "resetpassword", path: "/resetpassword", component: ResetPassword },
 
+  { name: "register-retailer", path: "/register-retailer", component: RetailerRegistration },
+
+  { name: "seller-myoffers", path: "/seller/my-offers", component: MyOffers },
+
+  { name: "seller-home", path: "/seller/home", component: HomeSeller },
+
+  { name: "seller-requests", path: "/seller/requests", component: SellerRequests },
+
 
 
 
@@ -53,14 +69,19 @@ const router = createRouter({
 
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register', '/', '/resetpassword', '/resetpassword2'];
+
+  const publicPages = ['/login', '/register', '/', '/resetpassword', '/register-retailer'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
+
   if (authRequired && !loggedIn) {
     next('/login');
-  } else {
+  }
+
+  else {
     next();
   }
+
 });
 
 export default router;
