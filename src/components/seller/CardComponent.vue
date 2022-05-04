@@ -17,7 +17,7 @@
       </div>
       <div class="mbr-section-btn item-footer mt-2">
         <router-link
-          class="nav-link link text-white display-4"
+          class="btn btn-white display-4"
           :to="{
             name: `seller-giveoffer`,
             params: {

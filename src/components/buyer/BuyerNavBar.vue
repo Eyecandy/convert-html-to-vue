@@ -91,8 +91,5 @@ import logout from "../logoutComponent.vue";
 
 export default {
   components: { logout },
-  mounted() {
-    console.log(localStorage.getItem("auth"));
-  },
 };
 </script>

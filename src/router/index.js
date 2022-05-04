@@ -10,6 +10,7 @@ import ResetPassword from "../views/ResetPassword.vue";
 import RetailerRegistration from "../views/RetailerRegistration.vue";
 import HomeSeller from "../views/seller/HomeView.vue";
 import GiveOffer from "../views/seller/GiveOffer.vue";
+import GiveOffer2 from "../views/seller/GiveOfferPart2.vue";
 
 import MyOffers from "../views/seller/MyOffers.vue";
 import SellerRequests from "../views/seller/MyRequests.vue"
@@ -61,6 +62,13 @@ const routes = [
     name: "seller-giveoffer", path: "/seller/giveoffer/:priceRequestOrderId/:encodedPriceRequest", component: GiveOffer, props: true
 
   },
+
+  {
+    name: "seller-giveoffer-part2", path: "/seller/giveoffer-part2/:priceRequestOrderId/:encodedPriceRequest", component: GiveOffer2, props: true
+
+  },
+
+
 
 
 

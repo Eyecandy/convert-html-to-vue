@@ -38,6 +38,7 @@
         </div>
       </div>
     </section>
+
     <span>
       <section
         data-bs-version="5.1"
@@ -61,6 +62,17 @@
                   >
                 </h3>
               </div>
+              <div width="50px" @click="downloadFile(priceRequestOrderId)">
+                <a class="btn btn-success item-btn display-4"
+                  ><span
+                    class="
+                      imind-bird-deliveringletter
+                      mbr-iconfont mbr-iconfont-btn
+                    "
+                  ></span
+                  >Se din konfigurasjon&nbsp;</a
+                >
+              </div>
             </div>
           </div>
         </div>
@@ -76,9 +88,20 @@
         <div class="row justify-content-center">
           <div class="col-md-12">
             <div class="mbr-section-btn align-center">
-              <a class="btn btn-white display-4" href="page6-2.html"
-                >GI TILBUD</a
-              >
+              <div>
+                <router-link
+                  class="btn btn-white display-4"
+                  :to="{
+                    name: `seller-giveoffer-part2`,
+                    params: {
+                      priceRequestOrderId: priceRequestOrderIdParam,
+                      encodedPriceRequest: encodedPriceRequest,
+                    },
+                  }"
+                  exact
+                  >GI TILBUD</router-link
+                >
+              </div>
             </div>
           </div>
         </div>
@@ -89,17 +112,35 @@
 
 
 <script>
+import RequestService from "../../services/request.service.js";
 export default {
+  props: { priceRequestOrderId: String, encodedPriceRequest: String },
   data() {
     return {
       priceRequest: {},
+      priceRequestOrderIdParam: -1,
+      configMethod: "None",
     };
   },
   created() {
-    console.log(this.$route.params.priceRequestOrderId);
-    var priceRequest = JSON.parse(atob(this.$route.params.encodedPriceRequest));
-
-    this.priceRequest = priceRequest;
+    this.priceRequestOrderIdParam = this.$route.params.priceRequestOrderId;
+    this.priceRequest = JSON.parse(
+      atob(this.$route.params.encodedPriceRequest)
+    );
+    this.configMethod = this.priceRequest.configMethod.name;
+    console.log(this.priceRequest.configuration);
+  },
+  methods: {
+    downloadFile(priceRequestOrderId) {
+      console.log(priceRequestOrderId);
+      var url = `/api/seller/pricerequestorder/getfile/${this.$route.params.priceRequestOrderId}`;
+      console.log(url);
+      RequestService.downloadFile(
+        url,
+        this.configMethod,
+        this.priceRequest.configuration
+      );
+    },
   },
 };
 </script>
