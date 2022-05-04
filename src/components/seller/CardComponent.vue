@@ -5,19 +5,28 @@
         <img src="../../assets/images/features11.svg" />
       </div>
       <div class="item-content">
-        <h5 class="item-title mbr-fonts-style display-5">{{ carBrand }}</h5>
+        <h5 class="item-title mbr-fonts-style display-5">
+          {{ priceRequest.carBrand.name }}
+        </h5>
 
         <p class="mbr-text mbr-fonts-style mt-3 display-7">
-          Leveringssted: {{ county }} <br />Frist: {{ deadlineDate }} -
-          <em>kl {{ deadlineTime }}</em>
+          Leveringssted: {{ priceRequest.county.name }} <br />Frist:
+          {{ priceRequest.deadline.split("T")[0] }} -
+          <em>kl {{ priceRequest.deadline.split("T")[1].split(".")[0] }}</em>
         </p>
       </div>
       <div class="mbr-section-btn item-footer mt-2">
-        <a href="page5-2.html" class="btn btn-success item-btn display-4"
-          ><span
-            class="imind-bird-deliveringletter mbr-iconfont mbr-iconfont-btn"
-          ></span
-          >Les mer og gi tilbud&nbsp;</a
+        <router-link
+          class="nav-link link text-white display-4"
+          :to="{
+            name: `seller-giveoffer`,
+            params: {
+              priceRequestOrderId: priceRequestOrderId,
+              encodedPriceRequest: encodedPriceRequest,
+            },
+          }"
+          exact
+          >Les mer om tilbud</router-link
         >
       </div>
     </div>
@@ -34,19 +43,19 @@ export default {
   name: "CardComponentBuyer",
 
   props: {
-    carBrand: String,
-    county: String,
-    deadlineDate: String,
-    deadlineTime: String,
-    configMethod: String,
-    tireOption: String,
-    isDeadlineReached: Boolean,
-    priceRequestId: Number,
+    priceRequest: Object,
     priceRequestOrderId: Number,
-    configUrl: String,
   },
 
-  methods: {},
+  data() {
+    return {
+      encodedPriceRequest: "",
+    };
+  },
+
+  created() {
+    this.encodedPriceRequest = btoa(JSON.stringify(this.priceRequest));
+  },
 };
 </script>
 

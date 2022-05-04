@@ -87,6 +87,12 @@ import axios from "axios";
 export default {
   name: "CardComponentBuyer",
 
+  data() {
+    return {
+      disabled: false,
+    };
+  },
+
   props: {
     carBrand: String,
     county: String,

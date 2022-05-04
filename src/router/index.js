@@ -8,7 +8,8 @@ import CarBrandSelector from "../views/CarBrandSelectorView.vue";
 import BuyerMyRequests from "../views/buyer/MyRequestView.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import RetailerRegistration from "../views/RetailerRegistration.vue";
-import HomeSeller from "../views/seller/HomeView.vue"
+import HomeSeller from "../views/seller/HomeView.vue";
+import GiveOffer from "../views/seller/GiveOffer.vue";
 
 import MyOffers from "../views/seller/MyOffers.vue";
 import SellerRequests from "../views/seller/MyRequests.vue"
@@ -55,6 +56,12 @@ const routes = [
   { name: "seller-home", path: "/seller/home", component: HomeSeller },
 
   { name: "seller-requests", path: "/seller/requests", component: SellerRequests },
+
+  {
+    name: "seller-giveoffer", path: "/seller/giveoffer/:priceRequestOrderId/:encodedPriceRequest", component: GiveOffer, props: true
+
+  },
+
 
 
 

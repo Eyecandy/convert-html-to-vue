@@ -1,5 +1,6 @@
 <template>
   <section
+    v-if="displayCards"
     data-bs-version="5.1"
     class="features3 cid-t4jbe4K6Cm"
     id="features3-1e"
@@ -10,16 +11,13 @@
           Dine forespørsler
         </h4>
       </div>
-      <div class="row mt-5">
-        <div v-for="pr in priceOrderRequests" v-bind:key="pr.id">
-          <CardComponent
-            :carBrand="pr.priceRequest.carBrand.name"
-            :county="pr.priceRequest.county.name"
-            :deadlineDate="pr.priceRequest.deadline.split('T')[0]"
-            :deadlineTime="pr.priceRequest.deadline.split('T')[1].split('.')[0]"
-          >
-          </CardComponent>
-        </div>
+
+      <div class="row mt-5" v-for="pr in priceOrderRequests" v-bind:key="pr.id">
+        <CardComponent
+          :priceRequest="pr.priceRequest"
+          :priceRequestOrderId="pr.id"
+        >
+        </CardComponent>
       </div>
     </div>
   </section>
@@ -27,15 +25,15 @@
 
 <script>
 import CardComponent from "../../components/seller/CardComponent.vue";
+
 import RequestService from "../../services/request.service.js";
 import authHeader, { AuthHead } from "../../services/auth-header.js";
 
 export default {
   components: { CardComponent },
-  component: [CardComponent],
 
   data() {
-    return { priceOrderRequests: [] };
+    return { priceOrderRequests: [], displayCards: true };
   },
 
   mounted() {
