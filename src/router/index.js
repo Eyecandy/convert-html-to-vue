@@ -14,6 +14,7 @@ import GiveOffer2 from "../views/seller/GiveOfferPart2.vue";
 
 import MyOffers from "../views/seller/MyOffers.vue";
 import SellerRequests from "../views/seller/MyRequests.vue"
+import OfferOnPriceRequest from "../views/buyer/OfferOnPriceRequest.vue"
 import { auth } from "@/store/auth.module";
 
 
@@ -65,6 +66,11 @@ const routes = [
 
   {
     name: "seller-giveoffer-part2", path: "/seller/giveoffer-part2/:priceRequestOrderId/:encodedPriceRequest", component: GiveOffer2, props: true
+
+  },
+
+  {
+    name: "offer-on-priceRequest", path: "/seller/offer-on-priceRequest/:encodedPriceRequest", component: OfferOnPriceRequest, props: true
 
   },
 

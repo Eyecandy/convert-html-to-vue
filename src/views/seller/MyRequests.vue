@@ -40,6 +40,7 @@ export default {
     RequestService.sendAuthorizedGetRequest(
       "/api/seller/pricerequestorder/listpricerequestorders"
     ).then((response) => (this.priceOrderRequests = response));
+    console.log(this.priceOrderRequests);
   },
 
   methods: {

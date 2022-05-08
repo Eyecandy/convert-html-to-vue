@@ -67,6 +67,7 @@
               <button
                 :disabled="!isDeadlineReached ? '' : disabled"
                 class="w-100 btn btn-primary display-4"
+                @Click="changeRouteToLookAtOffer"
               >
                 Se den beste prisen
               </button>
@@ -90,6 +91,7 @@ export default {
   data() {
     return {
       disabled: false,
+      encodedPriceRequest: "",
     };
   },
 
@@ -107,7 +109,27 @@ export default {
     configUrl: String,
   },
 
+  created() {
+    var priceRequest = {
+      priceRequestId: this.priceRequestId,
+      carBrand: this.carBrand,
+      county: this.county,
+      tireOption: this.tireOption,
+      numSellerTotal: this.numSellerTotal,
+      numSellerAnswered: this.numSellerAnswered,
+    };
+    this.encodedPriceRequest = btoa(JSON.stringify(priceRequest));
+  },
+
   methods: {
+    changeRouteToLookAtOffer() {
+      this.$router.push({
+        name: `offer-on-priceRequest`,
+        params: {
+          encodedPriceRequest: this.encodedPriceRequest,
+        },
+      });
+    },
     getFile(pricerequestId) {
       console.log(configUrl);
       var url = `/api/buyer/pricerequest/getfile/${pricerequestId}`;

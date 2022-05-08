@@ -11,8 +11,8 @@
 
         <p class="mbr-text mbr-fonts-style mt-3 display-7">
           Leveringssted: {{ priceRequest.county.name }} <br />Frist:
-          {{ priceRequest.deadline.split("T")[0] }} -
-          <em>kl {{ priceRequest.deadline.split("T")[1].split(".")[0] }}</em>
+          {{ datelineDate }} -
+          <em>kl {{ deadlineTime }}</em>
         </p>
       </div>
       <div class="mbr-section-btn item-footer mt-2">
@@ -39,8 +39,9 @@ import RequestService from "../../services/request.service.js";
 import authHeader, { AuthHead } from "../../services/auth-header.js";
 import download from "downloadjs";
 import axios from "axios";
+import moment from "moment";
 export default {
-  name: "CardComponentBuyer",
+  name: "CardComponentSeller",
 
   props: {
     priceRequest: Object,
@@ -50,11 +51,15 @@ export default {
   data() {
     return {
       encodedPriceRequest: "",
+      deadlineTime: "",
+      datelineDate: "",
     };
   },
 
   created() {
     this.encodedPriceRequest = btoa(JSON.stringify(this.priceRequest));
+    this.deadlineTime = moment(this.priceRequest.deadline).format("HH:mm:ss");
+    this.datelineDate = moment(this.priceRequest.deadline).format("DD/MM/YYYY");
   },
 };
 </script>
