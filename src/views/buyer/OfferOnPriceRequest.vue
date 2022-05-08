@@ -141,6 +141,17 @@
         <div class="row justify-content-center">
           <div class="col-md-12">
             <div class="mbr-section-btn align-center">
+              <div width="50px" @click="downloadFile()">
+                <a class="btn btn-success item-btn display-4"
+                  ><span
+                    class="
+                      imind-bird-deliveringletter
+                      mbr-iconfont mbr-iconfont-btn
+                    "
+                  ></span
+                  >Se tilbud fra forhandler</a
+                >
+              </div>
               <div>
                 <button class="btn btn-white display-4" exact>
                   Jeg ønsker at forhandler kontakter meg!
@@ -163,6 +174,7 @@ export default {
     return {
       priceRequest: {},
       priceRequestStatsDto: {},
+      pdfsrc: "",
     };
   },
   created() {
@@ -175,14 +187,19 @@ export default {
     );
   },
   methods: {
-    downloadFile(priceRequestOrderId) {
-      console.log(priceRequestOrderId);
-      var url = `/api/seller/pricerequestorder/getfile/${this.$route.params.priceRequestOrderId}`;
-      console.log(url);
+    downloadFile() {
+      var url = `/api/buyer/pricerequest/lowest-offer-file/${this.priceRequest.priceRequestId}`;
+      RequestService.downloadLowestOfferFile(url);
+    },
+    getLowestOfferFile() {
+      var url = `/api/buyer/pricerequest/lowest-offer-file/${this.priceRequest.priceRequestId}`;
+      this.pdfsrc = RequestService.getLowestOfferFile(url);
+      document.getElementById("myid").src = this.pdfsrc;
+      console.log(document.getElementById("myid").src);
+      console.log(this.pdfsrc);
     },
     getLowestAndHighestOfferOnPriceRequest(priceRequestId) {
       var url = `/api/buyer/pricerequest/price-request-stats/${priceRequestId}`;
-      console.log(url);
       RequestService.sendAuthorizedGetRequest(url).then(
         (response) => (this.priceRequestStatsDto = response)
       );

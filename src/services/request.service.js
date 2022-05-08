@@ -92,6 +92,47 @@ class RequestService {
             window.location.href = configUrl;
 
         }
+    }
+
+
+    downloadLowestOfferFile(url) {
+
+        axios
+            .get(url, {
+                headers: {
+                    Authorization: authHeader().Authorization,
+                },
+                responseType: "blob", // had to add this one here
+            })
+            .then((response) => {
+                const blob = new Blob([response.data], { type: "application/pdf" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+
+                link.click();
+                window.open(link.href);
+                URL.revokeObjectURL(link.href);
+            })
+            .catch(console.error);
+
+    }
+
+    getLowestOfferFile(url) {
+
+        axios
+            .get(url, {
+                headers: {
+                    Authorization: authHeader().Authorization,
+                },
+                responseType: "blob", // had to add this one here
+            })
+            .then((response) => {
+                const blob = new Blob([response.data], { type: "application/pdf" });
+                return URL.createObjectURL(blob);
+
+
+            })
+            .catch(console.error);
 
     }
 
