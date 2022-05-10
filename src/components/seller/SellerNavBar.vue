@@ -65,11 +65,10 @@
             >
           </li>
           <li class="nav-item">
-            <a
+            <router-link
               class="nav-link link text-white display-4"
-              href="#"
-              aria-expanded="false"
-              >Historikk</a
+              :to="'/seller/my-offers'"
+              >Mine tilbud</router-link
             >
           </li>
           <li class="nav-item">

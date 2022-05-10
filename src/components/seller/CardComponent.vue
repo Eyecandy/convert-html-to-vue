@@ -14,6 +14,26 @@
           {{ datelineDate }} -
           <em>kl {{ deadlineTime }}</em>
         </p>
+        <p class="mbr-text mbr-fonts-style mt-3 display-7">
+          Tidsfrist status:
+          <em :style="{ color: '#90EE90' }" v-if="deadlineStatus === 'Aktiv'">
+            {{ deadlineStatus }}
+          </em>
+
+          <em :style="{ color: '#8b0000' }" v-else>
+            {{ deadlineStatus }}
+          </em>
+        </p>
+        <p class="mbr-text mbr-fonts-style mt-3 display-7">
+          Tilbud levert:
+          <em :style="{ color: '#90EE90' }" v-if="deliveredStatus === 'Ja'">
+            {{ deliveredStatus }}
+          </em>
+
+          <em :style="{ color: '#8b0000' }" v-else>
+            {{ deliveredStatus }}
+          </em>
+        </p>
       </div>
       <div class="mbr-section-btn item-footer mt-2">
         <router-link
@@ -46,6 +66,8 @@ export default {
   props: {
     priceRequest: Object,
     priceRequestOrderId: Number,
+    deadlineReached: Boolean,
+    answered: Boolean,
   },
 
   data() {
@@ -53,6 +75,9 @@ export default {
       encodedPriceRequest: "",
       deadlineTime: "",
       datelineDate: "",
+      deadlineStatus: "",
+      deliveredStatus: "",
+      result: "",
     };
   },
 
@@ -60,9 +85,37 @@ export default {
     this.encodedPriceRequest = btoa(JSON.stringify(this.priceRequest));
     this.deadlineTime = moment(this.priceRequest.deadline).format("HH:mm:ss");
     this.datelineDate = moment(this.priceRequest.deadline).format("DD/MM/YYYY");
+    this.setDeadlineStatus();
+    this.setDeliveredStatus();
+  },
+
+  methods: {
+    setDeadlineStatus() {
+      if (this.deadlineReached) {
+        this.deadlineStatus = "Utløpt";
+      } else {
+        this.deadlineStatus = "Aktiv";
+      }
+    },
+    setDeliveredStatus() {
+      if (this.answered) {
+        this.deliveredStatus = "Ja";
+      } else {
+        this.deliveredStatus = "Ikke enda";
+      }
+    },
   },
 };
 </script>
 
 
 
+<style scoped>
+.green {
+  color: "#90EE90";
+}
+
+.dark-red {
+  color: "#8b0000";
+}
+</style>

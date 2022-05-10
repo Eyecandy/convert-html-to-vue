@@ -89,7 +89,7 @@
               </div>
               <div class="col-auto">
                 <button
-                  type="submit"
+                  type="button"
                   class="w-100 w-100 w-100 w-100 btn btn-primary display-7"
                   @Click="handleSubmit"
                 >
@@ -164,6 +164,7 @@ export default {
           this.$router.push("/seller/requests");
         })
         .catch((response) => {
+          console.log("ERROR");
           console.log(response);
         });
     },
