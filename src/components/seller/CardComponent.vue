@@ -46,7 +46,7 @@
             },
           }"
           exact
-          >Les mer om tilbud</router-link
+          >Les mer og gi Tilbud</router-link
         >
       </div>
     </div>

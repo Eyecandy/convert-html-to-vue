@@ -34,6 +34,23 @@
                 >kl {{ priceRequest.deadline.split("T")[1].split(".")[0] }}</em
               >
             </h4>
+
+            <a
+              class="btn btn-success item-btn display-4"
+              @click="downloadFile(priceRequestOrderId)"
+              ><span
+                class="
+                  imind-bird-deliveringletter
+                  mbr-iconfont mbr-iconfont-btn
+                "
+              >
+                <img
+                  src="../../assets/images/pdf.png"
+                  alt=""
+                  width="50"
+                  height="40" /></span
+              >Se kunde sin bil konfigurasjon</a
+            >
           </div>
         </div>
       </div>
@@ -57,21 +74,8 @@
                     display-7
                   "
                 >
-                  <a href="page6-2.html" class="text-success"
-                    ><strong>GI TILBUD</strong></a
-                  >
+                  <a class="text-success"><strong>GI TILBUD</strong></a>
                 </h3>
-              </div>
-              <div width="50px" @click="downloadFile(priceRequestOrderId)">
-                <a class="btn btn-success item-btn display-4"
-                  ><span
-                    class="
-                      imind-bird-deliveringletter
-                      mbr-iconfont mbr-iconfont-btn
-                    "
-                  ></span
-                  >Se din konfigurasjon&nbsp;</a
-                >
               </div>
             </div>
           </div>
@@ -146,8 +150,3 @@ export default {
 </script>
 
 
-<style scoped>
-.navbar-hide {
-  visibility: hidden;
-}
-</style>

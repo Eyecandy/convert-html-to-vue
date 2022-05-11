@@ -8,7 +8,7 @@
     <div class="container">
       <div class="mbr-section-head">
         <h4 class="mbr-section-title mbr-fonts-style align-left mb-0 display-5">
-          Dine forespørsler
+          Mottate forespørsler
         </h4>
 
         <div class="row content-row mt-4 mt-lg-2">
@@ -52,6 +52,10 @@
             </select>
           </div>
         </div>
+      </div>
+
+      <div class="row mt-4" v-if="priceRequestFiltered.length == 0">
+        Ingen forespørsler - sjekk dine filter
       </div>
 
       <div

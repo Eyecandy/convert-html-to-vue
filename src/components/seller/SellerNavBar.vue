@@ -61,14 +61,14 @@
             <router-link
               class="nav-link link text-white display-4"
               :to="'/seller/requests'"
-              >Mine forespørsler</router-link
+              >Mottate forespørsler</router-link
             >
           </li>
           <li class="nav-item">
             <router-link
               class="nav-link link text-white display-4"
               :to="'/seller/my-offers'"
-              >Mine tilbud</router-link
+              >Dine tilbud</router-link
             >
           </li>
           <li class="nav-item">

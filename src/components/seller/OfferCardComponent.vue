@@ -23,7 +23,7 @@
         </p>
 
         <p class="mbr-text mbr-fonts-style mt-3 display-7">
-          Status på tilbud:
+          Tilbud er levert og:
           <em :style="{ color: '#90EE90' }" v-if="statuOnOffer === 'Vunnet'"
             >{{ statuOnOffer }}
           </em>
@@ -46,7 +46,7 @@
             },
           }"
           exact
-          >Les mer om tilbud</router-link
+          >Se tilbudet ditt</router-link
         >
       </div>
     </div>
