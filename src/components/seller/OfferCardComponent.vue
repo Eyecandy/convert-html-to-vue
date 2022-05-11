@@ -1,0 +1,118 @@
+<template>
+  <div class="item features-image сol-12 col-md-6 col-lg-6">
+    <div class="element-wrapper">
+      <div class="item-img">
+        <img src="../../assets/images/features11.svg" />
+      </div>
+      <div class="item-content">
+        <h5 class="item-title mbr-fonts-style display-5">
+          {{ priceRequest.carBrand.name }}
+        </h5>
+
+        <p class="mbr-text mbr-fonts-style mt-3 display-7">
+          Leveringssted: {{ priceRequest.county.name }} <br />Frist:
+          {{ datelineDate }} -
+          <em>kl {{ deadlineTime }}</em>
+        </p>
+
+        <p class="mbr-text mbr-fonts-style mt-3 display-7">
+          Pris på ditt tilbud:
+          <em>
+            {{ totalPrice }}
+          </em>
+        </p>
+
+        <p class="mbr-text mbr-fonts-style mt-3 display-7">
+          Status på tilbud:
+          <em :style="{ color: '#90EE90' }" v-if="statuOnOffer === 'won'"
+            >{{ statuOnOffer }}
+          </em>
+          <em
+            :style="{ color: '#8b0000' }"
+            v-else-if="statuOnOffer === 'not won'"
+            >{{ statuOnOffer }}
+          </em>
+          <em :style="{ color: '#FFFF99' }" else="statuOnOffer === 'not won'"
+            >{{ statuOnOffer }}
+          </em>
+        </p>
+      </div>
+      <div class="mbr-section-btn item-footer mt-2">
+        <router-link
+          class="btn btn-white display-4"
+          :to="{
+            name: `seller-giveoffer`,
+            params: {
+              priceRequestOrderId: priceRequestOrder.id,
+              encodedPriceRequest: encodedPriceRequest,
+            },
+          }"
+          exact
+          >Les mer om tilbud</router-link
+        >
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import moment from "moment";
+export default {
+  name: "CardComponentSeller",
+
+  props: {
+    priceRequest: Object,
+    priceRequestOrder: Object,
+    deadlineReached: Boolean,
+    totalPrice: Number,
+    deadlineReached: Boolean,
+  },
+
+  data() {
+    return {
+      encodedPriceRequest: "",
+      deadlineTime: "",
+      datelineDate: "",
+      statuOnOffer: "",
+      result: "",
+    };
+  },
+
+  created() {
+    this.encodedPriceRequest = btoa(JSON.stringify(this.priceRequest));
+    this.deadlineTime = moment(this.priceRequest.deadline).format("HH:mm:ss");
+    this.datelineDate = moment(this.priceRequest.deadline).format("DD/MM/YYYY");
+    this.setStatusOnOffer();
+  },
+
+  methods: {
+    setStatusOnOffer() {
+      if (!this.deadLineReached) {
+        this.statuOnOffer = "Venter på tidsfrist går ut";
+      } else if (this.priceRequestOrder.customerAcceptedThisOffer) {
+        this.statuOnOffer = "Du vant tilbudet";
+      } else if (this.awaitingCustomerDecision) {
+        this.statuOnOffer = "Venter på svar fra kunder";
+      } else {
+        this.statuOnOffer = "Tilbud ikke vunnet";
+      }
+    },
+
+    awaitingCustomerDecision() {
+      return !this.priceRequest.customerHasAcceptedOffer;
+    },
+  },
+};
+</script>
+
+
+
+<style scoped>
+.green {
+  color: "#90EE90";
+}
+
+.dark-red {
+  color: "#8b0000";
+}
+</style>

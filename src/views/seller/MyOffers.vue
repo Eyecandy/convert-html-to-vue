@@ -15,11 +15,16 @@
           <div class="col-lg-2 col-md-2 col-sm-2 form-group">
             <p>Tilbud status</p>
             <br />
-            <select class="form-control form-select display-7">
-              <option>Alle</option>
-              <option>Vunnet</option>
-              <option>Ikke vunnet</option>
-              <option>Venter avgjørelse</option>
+            <select
+              class="form-control form-select display-7"
+              v-model="statusOffer"
+              @Change="setPriceRequesOrderFilters"
+            >
+              <option value="">Alle</option>
+              <option value="won">Vunnet</option>
+              <option value="not won">Ikke vunnet</option>
+              <option value="awaiting customer">Venter kunde avgjørelse</option>
+              <option value="awaiting deadline">Venter på tidsfrist</option>
             </select>
           </div>
 
@@ -29,7 +34,7 @@
             <select
               class="form-control form-select display-7"
               v-model="sortStatus"
-              @Change="setPriceRequesOrdertFilters"
+              @Change="setPriceRequesOrderFilters"
             >
               <option value="">Mest nylig dato</option>
               <option value="Ascending">Eldst dato</option>
@@ -43,35 +48,34 @@
         v-for="pr in priceRequestFiltered"
         v-bind:key="pr.id"
       >
-        <CardComponent
+        <OfferCardComponent
           :priceRequest="pr.priceRequest"
-          :priceRequestOrderId="pr.id"
+          :priceRequestOrder="pr"
+          :totalPrice="pr.totalPrice"
           :deadlineReached="pr.deadlineReached"
-          :answered="pr.answered"
         >
-        </CardComponent>
+        </OfferCardComponent>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import CardComponent from "../../components/seller/CardComponent.vue";
+import OfferCardComponent from "../../components/seller/OfferCardComponent.vue";
 
 import RequestService from "../../services/request.service.js";
 
 import moment from "moment";
 export default {
-  components: { CardComponent },
+  components: { OfferCardComponent },
 
   data() {
     return {
       priceRequestFiltered: [],
-      priceRequests: [],
-      priceOrderRequests: [],
-      displayCards: true,
+      priceRequestOrders: [],
       priceRequestOrdersFiltered: [],
-
+      displayCards: true,
+      statusOffer: "",
       sortStatus: "",
     };
   },
@@ -86,35 +90,61 @@ export default {
 
   methods: {
     isPriceRequestsEmpty() {
-      console.log(this.priceRequests.length == 0);
       return this.priceRequests.length == 0;
     },
     setInitialData(response) {
-      this.priceOrderRequests = response;
-      this.priceRequestOrdersExtra = response.map((priceRequestOrder) =>
-        this.updatePriceRequest(priceRequestOrder)
+      this.priceRequestOrders = response.filter((pro) => pro.answered);
+      this.priceRequestOrders = this.priceRequestOrders.map(
+        this.updatePriceRequestOrder
       );
-      this.setPriceRequesOrdertFilters(this.priceRequestOrdersExtra);
+      this.setPriceRequesOrderFilters(this.priceRequestOrders);
     },
-    updatePriceRequest(priceRequestOrder) {
+
+    updatePriceRequestOrder(priceRequestOrder) {
       priceRequestOrder["deadlineReached"] = this.setDeadlineStatus(
         priceRequestOrder.priceRequest.deadline
       );
+
       return priceRequestOrder;
     },
+
     setDeadlineStatus(deadline) {
       var date = moment(deadline);
       var now = moment();
       return now > date;
     },
 
-    setPriceRequesOrdertFilters() {
-      var filterPriceRequestOrders = this.priceRequestOrdersExtra;
-      var filterPriceRequestOrders = this.sortOnDate(filterPriceRequestOrders);
+    setPriceRequesOrderFilters() {
+      var filterPriceRequestOrders = this.priceRequestOrders;
+      filterPriceRequestOrders = this.sortOnDate(filterPriceRequestOrders);
+      filterPriceRequestOrders = this.filterOnOfferStatus(
+        filterPriceRequestOrders
+      );
       this.priceRequestFiltered = filterPriceRequestOrders;
     },
+    filterOnOfferStatus(priceRequestOrders) {
+      if (this.statusOffer === "won") {
+        return priceRequestOrders.filter(
+          (pro) => pro.customerAcceptedThisOffer
+        );
+      } else if (this.statusOffer === "not won") {
+        return priceRequestOrders.filter(
+          (pro) =>
+            !pro.customerAcceptedThisOffer &&
+            pro.priceRequest.customerHasAcceptedOffer
+        );
+      } else if (this.statusOffer === "awaiting customer") {
+        return priceRequestOrders.filter(
+          (pro) =>
+            pro.deadlineReached && !pro.priceRequest.customerHasAcceptedOffer
+        );
+      } else if (this.statusOffer === "awaiting deadline") {
+        return priceRequestOrders.filter((pro) => !pro.deadlineReached);
+      }
+      console.log("All");
+      return priceRequestOrders;
+    },
 
-    filterOnWonStatus(priceRequestOrders) {},
     sortOnDate(priceRequestOrders) {
       if (this.sortStatus === "Ascending") {
         return priceRequestOrders.sort(function (a, b) {
