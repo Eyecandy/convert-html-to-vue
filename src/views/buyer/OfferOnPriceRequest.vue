@@ -153,7 +153,11 @@
                 >
               </div>
               <div>
-                <button class="btn btn-white display-4" exact>
+                <button
+                  @Click="customerAcceptOffer"
+                  class="btn btn-white display-4"
+                  exact
+                >
                   Jeg ønsker at forhandler kontakter meg!
                 </button>
               </div>
@@ -203,6 +207,14 @@ export default {
       RequestService.sendAuthorizedGetRequest(url).then(
         (response) => (this.priceRequestStatsDto = response)
       );
+    },
+    customerAcceptOffer() {
+      RequestService.sendAuthorizedPostRequest(
+        "/api/buyer/pricerequest/customer-accept-offer",
+        { priceRequestId: this.priceRequest.priceRequestId }
+      )
+        .then((response) => console.log(response))
+        .catch((response) => console.log(response));
     },
   },
 };

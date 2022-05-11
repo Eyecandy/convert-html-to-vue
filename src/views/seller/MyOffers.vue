@@ -98,6 +98,7 @@ export default {
         this.updatePriceRequestOrder
       );
       this.setPriceRequesOrderFilters(this.priceRequestOrders);
+      console.log(this.priceRequestOrders);
     },
 
     updatePriceRequestOrder(priceRequestOrder) {
@@ -141,7 +142,6 @@ export default {
       } else if (this.statusOffer === "awaiting deadline") {
         return priceRequestOrders.filter((pro) => !pro.deadlineReached);
       }
-      console.log("All");
       return priceRequestOrders;
     },
 

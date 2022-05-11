@@ -136,7 +136,6 @@ export default {
       );
 
       filterPriceRequestOrders = this.sortOnDate(filterPriceRequestOrders);
-      console.log(filterPriceRequestOrders);
       this.priceRequestFiltered = filterPriceRequestOrders;
     },
     filterOnDeadLine(priceRequestOrders) {

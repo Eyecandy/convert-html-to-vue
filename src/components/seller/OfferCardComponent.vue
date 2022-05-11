@@ -24,17 +24,15 @@
 
         <p class="mbr-text mbr-fonts-style mt-3 display-7">
           Status på tilbud:
-          <em :style="{ color: '#90EE90' }" v-if="statuOnOffer === 'won'"
+          <em :style="{ color: '#90EE90' }" v-if="statuOnOffer === 'Vunnet'"
             >{{ statuOnOffer }}
           </em>
           <em
             :style="{ color: '#8b0000' }"
-            v-else-if="statuOnOffer === 'not won'"
+            v-else-if="statuOnOffer === 'Ikke vunnet'"
             >{{ statuOnOffer }}
           </em>
-          <em :style="{ color: '#FFFF99' }" else="statuOnOffer === 'not won'"
-            >{{ statuOnOffer }}
-          </em>
+          <em :style="{ color: '#FFFF99' }" v-else>{{ statuOnOffer }} </em>
         </p>
       </div>
       <div class="mbr-section-btn item-footer mt-2">
@@ -82,24 +80,21 @@ export default {
     this.encodedPriceRequest = btoa(JSON.stringify(this.priceRequest));
     this.deadlineTime = moment(this.priceRequest.deadline).format("HH:mm:ss");
     this.datelineDate = moment(this.priceRequest.deadline).format("DD/MM/YYYY");
+
     this.setStatusOnOffer();
   },
 
   methods: {
     setStatusOnOffer() {
-      if (!this.deadLineReached) {
+      if (!this.deadlineReached) {
         this.statuOnOffer = "Venter på tidsfrist går ut";
       } else if (this.priceRequestOrder.customerAcceptedThisOffer) {
-        this.statuOnOffer = "Du vant tilbudet";
-      } else if (this.awaitingCustomerDecision) {
-        this.statuOnOffer = "Venter på svar fra kunder";
+        this.statuOnOffer = "Vunnet";
+      } else if (!this.priceRequest.customerHasAcceptedOffer) {
+        this.statuOnOffer = "Venter på kunde avgjørelse";
       } else {
-        this.statuOnOffer = "Tilbud ikke vunnet";
+        this.statuOnOffer = "Ikke vunnet";
       }
-    },
-
-    awaitingCustomerDecision() {
-      return !this.priceRequest.customerHasAcceptedOffer;
     },
   },
 };
