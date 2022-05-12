@@ -109,7 +109,6 @@
 
 
 <script>
-import RequestService from "../../services/request.service.js";
 import axios from "axios";
 import authHeader, { AuthHead } from "../../services/auth-header.js";
 export default {

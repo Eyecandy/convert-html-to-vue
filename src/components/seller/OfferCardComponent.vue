@@ -2,7 +2,7 @@
   <div class="item features-image сol-12 col-md-6 col-lg-6">
     <div class="element-wrapper">
       <div class="item-img">
-        <img src="../../assets/images/features11.svg" />
+        <img src="../../assets/images/features10.svg" />
       </div>
       <div class="item-content">
         <h5 class="item-title mbr-fonts-style display-5">
