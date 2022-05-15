@@ -26,7 +26,7 @@
             </select>
           </div>
           <div class="col-lg-2 col-md-2 col-sm-2 form-group">
-            <p>Tilbud levert status</p>
+            <p>Tilbud levert</p>
             <br />
             <select
               class="form-control form-select display-7"
@@ -34,8 +34,8 @@
               @Change="setPriceRequesOrdertFilters"
             >
               <option value="">Alle</option>
-              <option value="delivered">Levert tilbud</option>
-              <option value="not delivered">Ikke levert tilbud</option>
+              <option value="delivered">Ja</option>
+              <option value="not delivered">Nei</option>
             </select>
           </div>
 

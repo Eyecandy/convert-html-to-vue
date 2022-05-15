@@ -16,12 +16,14 @@
                 {{ carBrand }}
               </h5>
               <br />
-              <br />
 
               <p class="mbr-text mbr-fonts-style mt-3 display-7">
+                Order Nummer: {{ orderNumber }}
+                <br />
+                <br />
+
                 Leveringssted: {{ county }}
 
-                <br />
                 <br />
                 <br />
                 Dekkvalg: {{ tireOption }}
@@ -107,6 +109,7 @@ export default {
     numSellerAnswered: Number,
     priceRequestId: Number,
     configUrl: String,
+    orderNumber: String,
   },
 
   created() {

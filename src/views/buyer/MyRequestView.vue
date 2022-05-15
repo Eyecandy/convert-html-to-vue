@@ -33,6 +33,7 @@
                           :numSellerAnswered="pr.numRetailersAnswered"
                           :priceRequestId="pr.id"
                           :configUrl="pr.configuration"
+                          :orderNumber="pr.orderNumber"
                         >
                         </CardComponent>
                       </div>

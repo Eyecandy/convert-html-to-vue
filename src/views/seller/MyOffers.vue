@@ -8,7 +8,7 @@
     <div class="container">
       <div class="mbr-section-head">
         <h4 class="mbr-section-title mbr-fonts-style align-left mb-0 display-5">
-          Dine tilbud
+          Leverte tilbud
         </h4>
 
         <div class="row content-row mt-4 mt-lg-2">
@@ -22,7 +22,7 @@
             >
               <option value="">Alle</option>
               <option value="won">Vunnet</option>
-              <option value="not won">Ikke vunnet</option>
+              <option value="not won">Tapt</option>
               <option value="awaiting customer">Venter kunde avgjørelse</option>
               <option value="awaiting deadline">Venter på tidsfrist</option>
             </select>

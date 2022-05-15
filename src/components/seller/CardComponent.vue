@@ -8,10 +8,15 @@
         <h5 class="item-title mbr-fonts-style display-5">
           {{ priceRequest.carBrand.name }}
         </h5>
+        <p class="mbr-text mbr-fonts-style mt-3 display-7">
+          Ordre Nummer: #{{ priceRequest.orderNumber }}
+        </p>
+        <p class="mbr-text mbr-fonts-style mt-3 display-7">
+          Leveringssted: {{ priceRequest.county.name }}
+        </p>
 
         <p class="mbr-text mbr-fonts-style mt-3 display-7">
-          Leveringssted: {{ priceRequest.county.name }} <br />Frist:
-          {{ datelineDate }} -
+          Frist: {{ datelineDate }} -
           <em>kl {{ deadlineTime }}</em>
         </p>
         <p class="mbr-text mbr-fonts-style mt-3 display-7">
@@ -87,6 +92,7 @@ export default {
     this.datelineDate = moment(this.priceRequest.deadline).format("DD/MM/YYYY");
     this.setDeadlineStatus();
     this.setDeliveredStatus();
+    console.log(this.priceRequest);
   },
 
   methods: {
@@ -101,7 +107,7 @@ export default {
       if (this.answered) {
         this.deliveredStatus = "Ja";
       } else {
-        this.deliveredStatus = "Ikke enda";
+        this.deliveredStatus = "Nei";
       }
     },
   },

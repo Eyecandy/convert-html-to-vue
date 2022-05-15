@@ -27,9 +27,7 @@
           <em :style="{ color: '#90EE90' }" v-if="statuOnOffer === 'Vunnet'"
             >{{ statuOnOffer }}
           </em>
-          <em
-            :style="{ color: '#8b0000' }"
-            v-else-if="statuOnOffer === 'Ikke vunnet'"
+          <em :style="{ color: '#8b0000' }" v-else-if="statuOnOffer === 'Tapt'"
             >{{ statuOnOffer }}
           </em>
           <em :style="{ color: '#FFFF99' }" v-else>{{ statuOnOffer }} </em>
@@ -93,7 +91,7 @@ export default {
       } else if (!this.priceRequest.customerHasAcceptedOffer) {
         this.statuOnOffer = "Venter på kunde avgjørelse";
       } else {
-        this.statuOnOffer = "Ikke vunnet";
+        this.statuOnOffer = "Tapt";
       }
     },
   },
