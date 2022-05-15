@@ -63,13 +63,13 @@
             >
           </li>
           <li class="nav-item">
-            <a
+            <router-link
               class="nav-link link text-white display-4"
-              href="#"
-              aria-expanded="false"
-              >Historikk</a
+              :to="'/buyer/configure-carbrand'"
+              >Send en forespørsel</router-link
             >
           </li>
+
           <li class="nav-item">
             <a class="nav-link link text-white display-4" href="#"
               >Personvern</a

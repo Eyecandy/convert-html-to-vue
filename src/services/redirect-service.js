@@ -4,7 +4,7 @@ class RedirectService {
         let user = JSON.parse(localStorage.getItem('user'));
         if (user && user.roles) {
             if (user.roles[0] == 'buyer') {
-                return '/buyer/myrequests'
+                return '/buyer/configure-carbrand'
             }
             else if (user.roles[0] == 'seller') {
                 return '/seller/home'

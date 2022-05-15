@@ -57,11 +57,20 @@
                     Logg Inn Bruker
                   </button>
                 </div>
-                <div>
-                  <router-link :to="'/resetpassword'"
-                    >Glemt passord?</router-link
-                  >
-                </div>
+
+                <tr class="my-container">
+                  <td class="my-column">
+                    <router-link :to="'/register'"
+                      >Registrer bruker
+                    </router-link>
+                  </td>
+                  <td class="my-column">|</td>
+                  <td>
+                    <router-link :to="'/resetpassword'"
+                      >Glemt passord?</router-link
+                    >
+                  </td>
+                </tr>
               </div>
             </form>
             <!--Formbuilder Form-->
@@ -125,3 +134,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.my-column {
+  padding-right: 10px;
+}
+</style>

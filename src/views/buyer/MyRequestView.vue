@@ -7,18 +7,11 @@
   >
     <div class="container">
       <div class="outer-container">
-        <div>
-          <div class="col-8 col-md-auto mbr-section-btn" w>
-            <button
-              @click.prevent="createNewPriceRequest()"
-              class="w-100 btn btn-primary display-4"
-            >
-              Ny forespørsel
-            </button>
-          </div>
-        </div>
         <div v-if="isPriceRequestsEmpty()" class="infoline">
           <h4>Du har ingen forspørsler</h4>
+          <router-link :to="'/buyer/configure-carbrand'">
+            - send en forespørsel</router-link
+          >
         </div>
         <div class="row justify-content-center">
           <div class="col-lg-12 col-md-12 col1 align-left my-auto">

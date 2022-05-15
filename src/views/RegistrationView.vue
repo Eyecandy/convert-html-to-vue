@@ -92,6 +92,13 @@
                     Registrer bruker
                   </button>
                 </div>
+                <tr>
+                  <td>
+                    <router-link :to="'/Login'"
+                      >Allerede registrert? - Logg inn
+                    </router-link>
+                  </td>
+                </tr>
               </div>
             </form>
             <!--Formbuilder Form-->
