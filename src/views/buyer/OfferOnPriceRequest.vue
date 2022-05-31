@@ -158,7 +158,7 @@
                   class="btn btn-white display-4"
                   exact
                 >
-                  Jeg ønsker at forhandler kontakter meg!
+                  Bestill Bilen!
                 </button>
               </div>
             </div>

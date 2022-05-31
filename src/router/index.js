@@ -4,7 +4,7 @@ import Policy1 from "../views/PolicyAgreement.vue";
 import LoginView from "../views/LoginView.vue";
 import HomeView from "../views/HomeView.vue";
 import profilepage from "../views/ProfilePage.vue";
-import CarBrandSelector from "../views/CarBrandSelectorView.vue";
+import CarBrandSelector from "../views/buyer/CarBrandSelectorView.vue";
 import BuyerMyRequests from "../views/buyer/MyRequestView.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import RetailerRegistration from "../views/RetailerRegistration.vue";

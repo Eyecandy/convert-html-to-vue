@@ -55,7 +55,7 @@ import RequestService from "../../services/request.service.js";
 import authHeader, { AuthHead } from "../../services/auth-header.js";
 export default {
   components: { CardComponent },
-  component: [CardComponent],
+
   data() {
     return { priceRequests: [] };
   },
