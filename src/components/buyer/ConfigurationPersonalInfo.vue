@@ -4,72 +4,77 @@
     class="col-lg-8 col-md-12 col-sm-12 form-group"
   >
     <input
+      @change="onFormChange"
       type="Text"
       placeholder="Fornavn"
       class="form-control display-7"
       required="required"
-      v-model="firstName"
+      v-model="personalInfoDto.firstName"
       id="Brukernavn-form4-a1"
     />
   </div>
   <div class="col-lg-8 col-md-12 col-sm-12 form-group">
     <input
+      @change="onFormChange"
       type="Text"
       placeholder="Etternavn"
       class="form-control display-7"
       required="required"
-      v-model="lastName"
+      v-model="personalInfoDto.lastName"
       id="Brukernavn-form4-a2"
     />
   </div>
 
   <div class="col-lg-8 col-md-12 col-sm-12 form-group">
     <input
-      name="Brukernavn"
+      @change="onFormChange"
       placeholder="telefon nummer"
       class="form-control display-7"
       required="required"
-      v-model="phoneNumber"
+      v-model="personalInfoDto.phoneNumber"
       id="Brukernavn-form4-a3"
     />
   </div>
 
   <div class="col-lg-8 col-md-12 col-sm-12 form-group">
     <input
-      name="Brukernavn"
+      @change="onFormChange"
       placeholder="By"
       class="form-control display-7"
       required="required"
-      v-model="city"
+      v-model="personalInfoDto.city"
       id="Brukernavn-form4-a3"
     />
   </div>
   <div class="col-lg-8 col-md-12 col-sm-12 form-group">
     <input
+      @change="onFormChange"
       placeholder="Post Nummer"
       class="form-control display-7"
       required="required"
-      v-model="postbox"
+      v-model="personalInfoDto.postBox"
       id="Brukernavn-form4-a4"
     />
   </div>
 
   <div class="col-lg-8 col-md-12 col-sm-12 form-group">
     <input
+      @change="onFormChange"
       placeholder="Gate Navn"
       class="form-control display-7"
       required="required"
-      v-model="streetName"
+      v-model="personalInfoDto.streetName"
       id="Brukernavn-form4-a5"
     />
   </div>
 
   <div class="col-lg-8 col-md-12 col-sm-12 form-group">
     <input
+      @change="onFormChange"
       placeholder="Gate Nummer"
       class="form-control display-7"
       required="required"
-      v-model="streetNumber"
+      v-model="personalInfoDto.streetNumber"
       id="Brukernavn-form4-a6"
     />
   </div>
@@ -82,33 +87,41 @@
 </template>
 
 <script>
+import LocalStorageService from "../../services/localStorage.service.js";
 export default {
   emits: ["personalInfoDto", "nextPage"],
+
+  async mounted() {
+    const personalInfoDto = await LocalStorageService.getOrFetch(
+      "personalInfoDto",
+      "/api/buyer/info/get"
+    );
+
+    this.personalInfoDto = personalInfoDto;
+  },
+
   data() {
     return {
-      firstName: "",
-      lastName: "",
-      phoneNumber: "",
-      postbox: "",
-      city: "",
-      streetName: "",
-      streetNumber: "",
+      allDataFetched: false,
+      personalInfoDto: {
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        postBox: "",
+        city: "",
+        streetName: "",
+        streetNumber: "",
+      },
     };
   },
   methods: {
     handleSubmit() {
-      const personalInfoDto = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        phoneNumber: this.phoneNumber,
-        postBox: this.postbox,
-        city: this.city,
-        streetName: this.streetName,
-        streetNumber: this.streetNumber,
-      };
-
-      this.$emit("personalInfoDto", personalInfoDto);
+      this.$emit("personalInfoDto", this.personalInfoDto);
       this.$emit("nextPage", 3);
+    },
+    onFormChange() {
+      console.log("hi");
+      LocalStorageService.tempUpdate("personalInfoDto", this.personalInfoDto);
     },
   },
 };
