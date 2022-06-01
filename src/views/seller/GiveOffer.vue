@@ -7,7 +7,7 @@
     >
       <div class="container">
         <div class="row justify-content-center">
-          <div class="title col-md-12 col-lg-12">
+          <div class="title col-md-6 col-lg-6">
             <h3
               class="
                 mbr-section-title mbr-fonts-style
@@ -51,6 +51,48 @@
                   height="40" /></span
               >Se kunde sin bil konfigurasjon</a
             >
+          </div>
+          <div class="title col-md-6 col-lg-6">
+            <h3
+              class="
+                mbr-section-title mbr-fonts-style
+                align-left
+                mb-4
+                display-5
+              "
+            >
+              Kunde Opplysninger
+            </h3>
+
+            <h4
+              class="
+                mbr-section-subtitle
+                align-left
+                mbr-fonts-style
+                mb-4
+                display-7
+              "
+            >
+              Navn:
+              {{ buyerInfoDto.firstName + " " + buyerInfoDto.lastName }}
+              <br />
+              <br />
+              Tlf Nummer: {{ buyerInfoDto.phoneNumber }}
+              <br />
+              <br />
+              E-post:
+              {{ buyerInfoDto.email }}
+              <br />
+              <br />
+              By: {{ buyerInfoDto.city }}
+              <br />
+              <br />
+              Postnummer: {{ buyerInfoDto.postBox }}
+              <br />
+              <br />
+              Gate Addresse:
+              {{ buyerInfoDto.streetName + " " + buyerInfoDto.streetNumber }}
+            </h4>
           </div>
         </div>
       </div>
@@ -124,7 +166,15 @@ export default {
       priceRequest: {},
       priceRequestOrderIdParam: -1,
       configMethod: "None",
+      buyerInfoDto: { x: "nothing" },
     };
+  },
+  async mounted() {
+    await RequestService.sendAuthorizedGetRequest(
+      `/api/seller/pricerequestorder/getbuyerinfo/${this.$route.params.priceRequestOrderId}`
+    )
+      .then((response) => (this.buyerInfoDto = response))
+      .catch(() => alert("mounted in giveOfferFailed on request to backend"));
   },
   created() {
     this.priceRequestOrderIdParam = this.$route.params.priceRequestOrderId;
@@ -132,13 +182,12 @@ export default {
       atob(this.$route.params.encodedPriceRequest)
     );
     this.configMethod = this.priceRequest.configMethod.name;
-    console.log(this.priceRequest.configuration);
   },
   methods: {
     downloadFile(priceRequestOrderId) {
       console.log(priceRequestOrderId);
       var url = `/api/seller/pricerequestorder/getfile/${this.$route.params.priceRequestOrderId}`;
-      console.log(url);
+
       RequestService.downloadFile(
         url,
         this.configMethod,
