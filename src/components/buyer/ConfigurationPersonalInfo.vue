@@ -80,19 +80,19 @@
   </div>
 
   <div class="col-12 col-md-auto mbr-section-btn">
-    <button @click="handleSubmit" class="w-100 btn btn-primary display-4">
+    <button @click.stop="handleSubmit" class="w-100 btn btn-primary display-4">
       Neste
     </button>
   </div>
 </template>
 
 <script>
-import LocalStorageService from "../../services/localStorage.service.js";
+import SessionStorageService from "../../services/sessionStorage.service.js";
 export default {
   emits: ["personalInfoDto", "nextPage"],
 
   async mounted() {
-    const personalInfoDto = await LocalStorageService.getOrFetch(
+    const personalInfoDto = await SessionStorageService.getOrFetch(
       "personalInfoDto",
       "/api/buyer/info/get"
     );
@@ -120,8 +120,7 @@ export default {
       this.$emit("nextPage", 3);
     },
     onFormChange() {
-      console.log("hi");
-      LocalStorageService.tempUpdate("personalInfoDto", this.personalInfoDto);
+      SessionStorageService.tempUpdate("personalInfoDto", this.personalInfoDto);
     },
   },
 };

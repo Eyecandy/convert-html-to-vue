@@ -27,17 +27,11 @@
 
               <p class="mbr-text card-text mbr-fonts-style display-6"></p>
               <p>
-                30.04 Volvo XC90 Troms &nbsp; &nbsp;
-                <strong
-                  ><a href="page2-2.html" class="text-primary"
-                    >Gå til forespørsel</a
-                  ></strong
-                ><br />30.04 Ford S-Max Agder&nbsp; &nbsp;
-                <strong
-                  >&nbsp;<a href="page2-2.html" class="text-primary"
-                    >Gå til forespørsel</a
-                  ></strong
-                ><br />
+                <router-link :to="'/seller/requests'">
+                  Du har
+                  <strong>{{ notAnsweredAndActivePriceRequestOrder }} </strong>
+                  forespørsler som venter på deg</router-link
+                >
               </p>
             </div>
           </div>
@@ -52,10 +46,23 @@
               </div>
 
               <p class="mbr-text card-text mbr-fonts-style display-4">
+                Mottate forespørseler:
+                <u>{{ numberOfRequests }} stk<br /></u>
+
                 Venter på svar:
-                <u><a href="page2-2.html" class="text-primary">2 stk</a></u
-                ><br />Din svarprosent: <u>95 %</u><br />Antall salg:
-                <u><a href="page4-2.html" class="text-primary">8 stk</a></u>
+                <u
+                  ><router-link :to="'/seller/requests'">
+                    {{ notAnsweredAndActivePriceRequestOrder }}
+
+                    stk</router-link
+                  ></u
+                ><br />Din svarprosent: <u>{{ answerPercentage }} %</u
+                ><br />Antall salg:
+                <u
+                  ><router-link :to="'/seller/my-offers'">
+                    {{ numPriceRequestWon }} stk</router-link
+                  ></u
+                >
               </p>
             </div>
           </div>
@@ -104,17 +111,41 @@
 
 <script>
 import RequestService from "../../services/request.service.js";
-
+import SessionStorageService from "../../services/sessionStorage.service.js";
+import PriceRequestOrderService from "../../services/PriceRequestOrder.service.js";
 export default {
   data() {
     return {
       sellerUserDto: "",
-
+      priceRequestOrders: "",
+      priceRequestOrderseExtra: "",
       firstname: "",
       lastname: "",
       email: "",
       phoneNumber: "",
+      numPriceRequestWon: "",
+      notAnsweredAndActivePriceRequestOrder: "",
+      answerPercentage: "",
+      numberOfRequests: "",
     };
+  },
+  async mounted() {
+    var priceRequestOrders = await RequestService.sendAuthorizedGetRequest(
+      "/api/seller/pricerequestorder/listpricerequestorders"
+    ).then((response) => PriceRequestOrderService.addExtraFields(response));
+
+    var numberOfPriceRequestOrders = priceRequestOrders.length;
+    this.numPriceRequestWon = this.countWon(priceRequestOrders);
+    var numPriceRequestAnswered = this.countAnswered(priceRequestOrders);
+
+    this.answerPercentage = this.getAnswerPercentage(
+      numPriceRequestAnswered,
+      numberOfPriceRequestOrders
+    );
+
+    this.notAnsweredAndActivePriceRequestOrder =
+      this.countNotAnsweredAndActive(priceRequestOrders);
+    this.numberOfRequests = numberOfPriceRequestOrders;
   },
   created() {
     RequestService.sendAuthorizedGetRequest("/api/user/info")
@@ -122,8 +153,47 @@ export default {
       .catch((response) => console.log("error"));
   },
   methods: {
+    countWon(priceRequestOrders) {
+      var count = 0;
+      for (let [index, pro] of priceRequestOrders.entries()) {
+        if (pro.customerAcceptedThisOffer) {
+          count = count + 1;
+        }
+      }
+      return count;
+    },
+    countAnswered(priceRequestOrders) {
+      var count = 0;
+
+      for (let [index, pro] of priceRequestOrders.entries()) {
+        if (pro.answered) {
+          count = count + 1;
+        }
+      }
+      return count;
+    },
+    countNotAnsweredAndActive(priceRequestOrdersExtra) {
+      var count = 0;
+      console.log(priceRequestOrdersExtra);
+      for (let [index, pro] of priceRequestOrdersExtra.entries()) {
+        if (!pro.answered && !pro.deadlineReached) {
+          count = count + 1;
+        }
+      }
+      return count;
+    },
+    getAnswerPercentage(numPriceRequestAnswered, numberOfPriceRequestOrders) {
+      if (numberOfPriceRequestOrders === 0) {
+        return 0;
+      } else {
+        return (
+          (numPriceRequestAnswered / numberOfPriceRequestOrders) *
+          100
+        ).toFixed(2);
+      }
+    },
+
     setSellerUser(response) {
-      console.log(response);
       this.sellerUserDto = response;
       this.setName(this.sellerUserDto);
       this.email = this.sellerUserDto.email;

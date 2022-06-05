@@ -80,6 +80,8 @@ import CardComponent from "../../components/seller/CardComponent.vue";
 
 import RequestService from "../../services/request.service.js";
 
+import PriceRequestOrderService from "../../services/PriceRequestOrder.service.js";
+
 import moment from "moment";
 export default {
   components: { CardComponent },

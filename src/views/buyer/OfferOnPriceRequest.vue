@@ -199,8 +199,6 @@ export default {
       var url = `/api/buyer/pricerequest/lowest-offer-file/${this.priceRequest.priceRequestId}`;
       this.pdfsrc = RequestService.getLowestOfferFile(url);
       document.getElementById("myid").src = this.pdfsrc;
-      console.log(document.getElementById("myid").src);
-      console.log(this.pdfsrc);
     },
     getLowestAndHighestOfferOnPriceRequest(priceRequestId) {
       var url = `/api/buyer/pricerequest/price-request-stats/${priceRequestId}`;
