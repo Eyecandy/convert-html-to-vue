@@ -6,8 +6,15 @@
       id="form4-a"
     >
       <div class="container">
+        <SuccessCard
+          :text="accountCreated"
+          :isVisible="successMessageVisible"
+          :path="loginPath"
+          :continueText="'Fortsett til logg inn'"
+          :statusText="'Konto Laget!'"
+        ></SuccessCard>
         <div class="row content-wrapper justify-content-center">
-          <div class="col-lg-4 mbr-form">
+          <div :class="getClass()">
             <!--Formbuilder Form-->
             <form @submit.prevent="handleSubmit">
               <div class="row">
@@ -29,12 +36,14 @@
                   class="col-lg-8 col-md-12 col-sm-12 form-group"
                   data-for="Brukernavn"
                 >
+                  <ErrorFieldText
+                    :isValid="isValidEmail || checkInit"
+                    :text="emailErrorText"
+                  ></ErrorFieldText>
                   <input
-                    type="email"
                     name="Brukernavn"
                     placeholder="Skriv inn din e-post"
                     class="form-control display-7"
-                    required="required"
                     v-model="email"
                     id="Brukernavn-form4-a"
                   />
@@ -44,26 +53,33 @@
                   data-for="password"
                   style=""
                 >
+                  <ErrorFieldText
+                    :isValid="isValidPassword || checkInit"
+                    :text="passwordErrorText"
+                  ></ErrorFieldText>
                   <input
                     type="password"
                     name="password"
+                    title="Passord må inneholder 8 tegn"
                     placeholder="Ønsket passord"
                     v-model="password"
                     class="form-control display-7"
-                    required="required"
                   />
                 </div>
                 <div
                   class="col-lg-8 col-md-12 col-sm-12 form-group"
                   data-for="password1"
                 >
+                  <ErrorFieldText
+                    :isValid="isValidConfirmPassword || checkInit"
+                    :text="passwordConfirmErrorText"
+                  ></ErrorFieldText>
                   <input
                     type="password"
                     name="password1"
                     placeholder="Bekreft passord"
                     class="form-control display-7"
                     v-model="matchingPassword"
-                    required="required"
                   />
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 form-group">
@@ -72,9 +88,13 @@
                     data-for="Ved å registrere deg godtar du våre generelle vilkår. Les mer her."
                     class="form-check form-check-inline ms-2"
                   >
+                    <ErrorFieldText
+                      :isValid="checkBoxConfirmed || checkInit"
+                      :text="checkBoxTicked"
+                    ></ErrorFieldText>
                     <input
+                      @change="toggle()"
                       type="checkbox"
-                      value="Yes"
                       name="Ved å registrere deg godtar du våre generelle vilkår. Les mer her."
                       class="form-check-input display-7"
                       id="Ved å registrere deg godtar du våre generelle vilkår. Les mer her.-form4-a"
@@ -121,13 +141,35 @@
 <script>
 import axios from "axios";
 import RedirectService from "../services/redirect-service.js";
+import ErrorFieldText from "../components/errorFieldText.vue";
+import FieldValidationService from "../services/fieldValidation.service.js";
+import SuccessCard from "../components/successCard.vue";
+
 export default {
+  components: { ErrorFieldText, SuccessCard },
   name: "RegistrationView",
   data() {
     return {
       email: "",
       password: "",
       matchingPassword: "",
+      checkInit: true,
+      allChecksPassed: false,
+      isValidEmail: false,
+      isValidPassword: false,
+
+      isValidConfirmPassword: false,
+
+      emailErrorText:
+        "må være en gyldig epost adresse. For eksempel bruker@epost.no",
+      passwordErrorText: "Passord må inneholde minst 8 tegn",
+      passwordConfirmErrorText: "Bekreftet passord må være likt som passord",
+
+      checkBoxConfirmed: false,
+      checkBoxTicked: "Godkjenn villkår ved å krysse av boksen",
+      accountCreated: "",
+      successMessageVisible: false,
+      loginPath: "/login",
     };
   },
 
@@ -144,22 +186,66 @@ export default {
   },
 
   methods: {
-    handleSubmit() {
-      console.log(
-        "submitted",
-        this.email,
-        this.password,
-        this.matchingPassword
+    getClass() {
+      if (this.successMessageVisible) {
+        return "col-lg-4 mbr-form blur-content";
+      } else {
+        return "col-lg-4 mbr-form justify-content-center";
+      }
+    },
+
+    successAccountCreatedMessage() {
+      this.accountCreated =
+        "Din konto er opprettet, du vil snart motta en e-post på: " +
+        this.email;
+    },
+    toggle() {
+      this.checkBoxConfirmed = !this.checkBoxConfirmed;
+    },
+
+    checkFormFields() {
+      this.checkInit = false;
+      this.isValidEmail = FieldValidationService.validateEmail(this.email);
+      this.isValidPassword = FieldValidationService.validatePassword(
+        this.password
       );
-      axios
-        .post("/api/auth/signup", {
-          email: this.email,
-          password: this.password,
-          matchingPassword: this.matchingPassword,
-        })
-        .then((Response) => this.$router.push("/login"))
-        .catch((Response) => console.log(Response));
+      this.isValidConfirmPassword =
+        FieldValidationService.validatePasswordMatch(
+          this.password,
+          this.matchingPassword
+        );
+      this.allChecksPassed =
+        this.isValidEmail &&
+        this.isValidPassword &&
+        this.isValidConfirmPassword &&
+        this.checkBoxConfirmed;
+    },
+
+    handleSubmit() {
+      this.checkFormFields();
+
+      if (this.allChecksPassed === true) {
+        axios
+          .post("/api/auth/signup", {
+            email: this.email,
+            password: this.password,
+            matchingPassword: this.matchingPassword,
+          })
+          .then((Response) => this.afterRegistrationSuccess())
+          .catch((Response) => console.log(Response));
+      }
+    },
+    afterRegistrationSuccess() {
+      this.successAccountCreatedMessage();
+      this.successMessageVisible = true;
     },
   },
 };
 </script>
+
+
+<style scoped>
+.blur-content {
+  filter: blur(3px);
+}
+</style>
