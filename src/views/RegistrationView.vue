@@ -250,10 +250,8 @@ export default {
       if (error.response.data["code"] === "co2") {
         this.alreadyRegisteredText = this.email + " er allerede registrert";
         this.isNewEmail = false;
-
-        console.log("Du er allerede registrert: " + this.email);
       } else {
-        //TODO : GO TO 500 ERROR PAGE
+        this.$router.push("/server-error");
       }
     },
   },

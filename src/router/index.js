@@ -15,6 +15,7 @@ import GiveOffer2 from "../views/seller/GiveOfferPart2.vue";
 import MyOffers from "../views/seller/MyOffers.vue";
 import SellerRequests from "../views/seller/MyRequests.vue"
 import OfferOnPriceRequest from "../views/buyer/OfferOnPriceRequest.vue"
+import ServerError from "../views/error/server-error.vue"
 import { auth } from "@/store/auth.module";
 
 
@@ -74,6 +75,11 @@ const routes = [
 
   },
 
+  {
+    name: "server-error", path: "/server-error", component: ServerError
+
+  },
+
 
 
 
@@ -91,7 +97,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
-  const publicPages = ['/login', '/register', '/', '/resetpassword', '/register-retailer'];
+  const publicPages = ['/login', '/register', '/', '/resetpassword', '/register-retailer', '/server-error'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 
