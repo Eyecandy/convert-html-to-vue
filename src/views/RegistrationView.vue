@@ -6,6 +6,11 @@
       id="form4-a"
     >
       <div class="container">
+        <ErrorFieldText
+          :isValid="isNewEmail"
+          :text="alreadyRegisteredText"
+        ></ErrorFieldText>
+
         <SuccessCard
           :text="accountCreated"
           :isVisible="successMessageVisible"
@@ -159,6 +164,8 @@ export default {
       isValidPassword: false,
 
       isValidConfirmPassword: false,
+      isNewEmail: true,
+      alreadyRegisteredText: "temp",
 
       emailErrorText:
         "må være en gyldig epost adresse. For eksempel bruker@epost.no",
@@ -231,13 +238,23 @@ export default {
             password: this.password,
             matchingPassword: this.matchingPassword,
           })
-          .then((Response) => this.afterRegistrationSuccess())
-          .catch((Response) => console.log(Response));
+          .then((response) => this.afterRegistrationSuccess())
+          .catch((error) => this.afterRegistrationError(error));
       }
     },
     afterRegistrationSuccess() {
       this.successAccountCreatedMessage();
       this.successMessageVisible = true;
+    },
+    afterRegistrationError(error) {
+      if (error.response.data["code"] === "co2") {
+        this.alreadyRegisteredText = this.email + " er allerede registrert";
+        this.isNewEmail = false;
+
+        console.log("Du er allerede registrert: " + this.email);
+      } else {
+        //TODO : GO TO 500 ERROR PAGE
+      }
     },
   },
 };
