@@ -7,8 +7,8 @@
     >
       <div class="container">
         <ErrorFieldText
-          :isValid="isNewEmail"
-          :text="alreadyRegisteredText"
+          :isValid="serverSuccess"
+          :text="serverFailureText"
         ></ErrorFieldText>
 
         <SuccessCard
@@ -164,12 +164,13 @@ export default {
       isValidPassword: false,
 
       isValidConfirmPassword: false,
-      isNewEmail: true,
-      alreadyRegisteredText: "temp",
+      serverSuccess: true,
+      serverFailureText: "temp",
 
       emailErrorText:
         "må være en gyldig epost adresse. For eksempel bruker@epost.no",
-      passwordErrorText: "Passord må inneholde minst 8 tegn",
+      passwordErrorText:
+        "Passord må inneholde mellom 8 og 60 tegn og kan ikke inneholde kun mellomrom",
       passwordConfirmErrorText: "Bekreftet passord må være likt som passord",
 
       checkBoxConfirmed: false,
@@ -247,9 +248,13 @@ export default {
       this.successMessageVisible = true;
     },
     afterRegistrationError(error) {
-      if (error.response.data["code"] === "co2") {
-        this.alreadyRegisteredText = this.email + " er allerede registrert";
-        this.isNewEmail = false;
+      if (error.response.data["code"] === "reg_conflict") {
+        this.serverFailureText = this.email + " er allerede registrert";
+        this.serverSuccess = false;
+      } else if (error.response.data["code"] === "field_error") {
+        this.serverFailureText =
+          error.response.data["errorMessageList"].toString();
+        this.serverSuccess = false;
       } else {
         this.$router.push("/server-error");
       }
