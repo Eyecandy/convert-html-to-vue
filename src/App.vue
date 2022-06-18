@@ -8,15 +8,20 @@
       <SellerNavBar></SellerNavBar>
     </div>
 
+    <div v-else-if="!currentUser">
+      <BasicNavBar></BasicNavBar>
+    </div>
+
     <router-view />
   </div>
 </template>
 <script>
 import BuyerNavBar from "./components/buyer/BuyerNavBar.vue";
 import SellerNavBar from "./components/seller/SellerNavBar.vue";
+import BasicNavBar from "./components/BasicNavBar.vue";
 
 export default {
-  components: { BuyerNavBar, SellerNavBar },
+  components: { BuyerNavBar, SellerNavBar, BasicNavBar },
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;

@@ -98,6 +98,7 @@ export default {
     return {
       email: "",
       password: "",
+      loginErrorMessageNotShown: true,
     };
   },
   computed: {
@@ -113,6 +114,7 @@ export default {
 
   methods: {
     handleLogin() {
+      console.log("handle login");
       const user = { email: this.email, password: this.password };
       this.loading = true;
       this.$store.dispatch("auth/login", user).then(
@@ -120,7 +122,6 @@ export default {
           this.$router.push(RedirectService.getRedirectUrl());
         },
         (error) => {
-          console.log("error");
           this.loading = false;
           this.message =
             (error.response &&
@@ -128,6 +129,7 @@ export default {
               error.response.data.message) ||
             error.message ||
             error.toString();
+          console.log(error);
         }
       );
     },

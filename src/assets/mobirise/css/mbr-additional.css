@@ -52,6 +52,17 @@ body {
 .display-7 > .mbr-iconfont {
   font-size: 1.5rem;
 }
+.display-8 {
+  font-family: 'Jost', sans-serif;
+  font-size: 3rem;
+  line-height: 1.1;
+}
+
+.display-10 {
+  font-family: 'Jost', sans-serif;
+  font-size: 2rem;
+  line-height: 1.5;
+}
 /* ---- Fluid typography for mobile devices ---- */
 /* 1.4 - font scale ratio ( bootstrap == 1.42857 ) */
 /* 100vw - current viewport width */
@@ -93,6 +104,96 @@ body {
     font-size: calc( 1.07rem + (1.2 - 1.07) * ((100vw - 20rem) / (48 - 20)));
     line-height: calc( 1.4 * (1.07rem + (1.2 - 1.07) * ((100vw - 20rem) / (48 - 20))));
   }
+}
+
+
+.cid-t5rRVeNmv3 {
+  background-color: #0057fc;
+}
+@media (min-width: 768px) {
+  .cid-t5rRVeNmv3 {
+    background-image: url("../../../assets/images/mbr-1920x1279.jpg");
+    background-position: center right;
+    background-repeat: no-repeat;
+    background-size: 50% auto;
+  }
+}
+.cid-t5rRVeNmv3 .row {
+  align-items: center;
+}
+.cid-t5rRVeNmv3 .image-wrapper {
+  padding: 1rem;
+}
+.cid-t5rRVeNmv3 .col-text {
+  position: relative;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
+.cid-t5rRVeNmv3 .col-text .radial-svg {
+  display: none;
+}
+@media (min-width: 992px) {
+  .cid-t5rRVeNmv3 .col-text .radial-svg {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -90px;
+    bottom: 0;
+    height: 100%;
+    width: 200px;
+    z-index: 1;
+  }
+  .cid-t5rRVeNmv3 .col-text .radial-svg path {
+    fill: #0057fc;
+  }
+}
+.cid-t5rRVeNmv3 .text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  z-index: 2;
+}
+@media (min-width: 992px) {
+  .cid-t5rRVeNmv3 .text-wrapper {
+    max-width: 400px;
+  }
+}
+.cid-t5rRVeNmv3 .label-text {
+  width: 100%;
+  color: #ffffff;
+}
+.cid-t5rRVeNmv3 .mbr-section-title {
+  margin-bottom: 1.425rem;
+  width: 100%;
+  color: #ffffff;
+}
+.cid-t5rRVeNmv3 .mbr-text {
+  color: #ffffff;
+  width: 100%;
+  margin-bottom: 12px;
+}
+.cid-t5rRVeNmv3 .btn-container {
+  width: 100%;
+}
+.cid-t5rRVeNmv3 .mbr-section-btn {
+  margin-top: 10px;
+}
+@media (max-width: 575px) {
+  .cid-t5rRVeNmv3 .mbr-section-btn {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .cid-t5rRVeNmv3 .mbr-section-btn .btn {
+    width: 100%;
+  }
+}
+.cid-t5rRVeNmv3 .btn-white-outline {
+  border: 1px solid currentColor;
+}
+.cid-t5rRVeNmv3 .btn-white-outline:hover {
+  color: #4222e5 !important;
+  background: #ffffff !important;
 }
 /* Buttons */
 .btn {
