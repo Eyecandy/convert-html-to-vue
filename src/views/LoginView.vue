@@ -8,6 +8,10 @@
       <div class="container">
         <div class="row content-wrapper justify-content-center">
           <div class="col-lg-4 mbr-form">
+            <ErrorFieldText
+              :isValid="serverFailure"
+              :text="serverFailureText"
+            ></ErrorFieldText>
             <!--Formbuilder Form-->
             <form @submit.prevent="handleLogin">
               <div class="row">
@@ -91,14 +95,18 @@
 </template>
 
 <script>
+import ErrorFieldText from "../components/errorFieldText.vue";
 import RedirectService from "../services/redirect-service.js";
 export default {
   name: "LoginView",
+  components: { ErrorFieldText },
   data() {
     return {
       email: "",
       password: "",
       loginErrorMessageNotShown: true,
+      serverFailure: false,
+      serverFailureText: "",
     };
   },
   computed: {
@@ -116,22 +124,22 @@ export default {
     handleLogin() {
       console.log("handle login");
       const user = { email: this.email, password: this.password };
-      this.loading = true;
+
       this.$store.dispatch("auth/login", user).then(
         () => {
           this.$router.push(RedirectService.getRedirectUrl());
         },
         (error) => {
-          this.loading = false;
-          this.message =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-          console.log(error);
+          this.afterLoginFailure(error);
         }
       );
+    },
+
+    afterLoginFailure(error) {
+      if (error.response.data["code"] === "invalid_credentials") {
+        this.serverFailureText = "Feil brukernavn eller passord";
+        this.serverSuccess = false;
+      }
     },
   },
 };
