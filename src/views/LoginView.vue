@@ -8,27 +8,19 @@
       <div class="container">
         <div class="row content-wrapper justify-content-center">
           <div class="col-lg-4 mbr-form">
-            <ErrorFieldText
-              :isValid="serverFailure"
-              :text="serverFailureText"
-            ></ErrorFieldText>
             <!--Formbuilder Form-->
             <form @submit.prevent="handleLogin">
-              <div class="row">
-                <div
-                  hidden="hidden"
-                  data-form-alert-danger=""
-                  class="alert alert-danger col-12"
-                >
-                  Oops...! some problem!
-                </div>
-              </div>
+              <div class="row"></div>
               <div class="dragArea row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                   <h1 class="mbr-section-title mb-3 display-2">
                     Logg Inn Bruker
                   </h1>
                 </div>
+                <ErrorFieldText
+                  :isValid="serverFailure"
+                  :text="serverFailureText"
+                ></ErrorFieldText>
                 <div
                   class="col-lg-12 col-md-12 col-sm-12 form-group"
                   data-for="Brukernavn"
@@ -136,6 +128,7 @@ export default {
     },
 
     afterLoginFailure(error) {
+      console.log("error");
       if (error.response.data["code"] === "invalid_credentials") {
         this.serverFailureText = "Feil brukernavn eller passord";
         this.serverSuccess = false;
