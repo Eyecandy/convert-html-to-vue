@@ -19,7 +19,6 @@
               @nextPage="nextPage($event)"
             ></ConfigurationPersonalInfo>
           </div>
-
           <div class="col-lg-7 offset-lg-1 col-12">
             <div class="image-wrapper">
               <img
@@ -44,7 +43,11 @@ import authHeader, { AuthHead } from "../../services/auth-header.js";
 import RequestService from "../../services/request.service.js";
 
 export default {
-  components: { ConfigurationSelector, ConfigurationPersonalInfo, Vipps },
+  components: {
+    ConfigurationSelector,
+    ConfigurationPersonalInfo,
+    Vipps,
+  },
   data() {
     return {
       allFormsSentSuccesfully: true,
@@ -73,7 +76,6 @@ export default {
       this.page = pageNumber;
     },
     setPersonalInfoDto(personalInfoDto) {
-      console.log(personalInfoDto);
       this.personalInfoDto = personalInfoDto;
     },
     handleSubmit() {
