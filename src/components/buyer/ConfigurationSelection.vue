@@ -173,9 +173,11 @@ export default {
       const configMethodSelected = this.selectedConfigMethod !== "";
       const countySelected = this.selectedCounty !== "";
       const tireSelectedOption = this.selectedTireOption !== "";
-      const pdfSelected = this.file !== "";
-      const linkSelected = this.link !== "";
+      const pdfSelected = this.file !== "" && this.PdfUploadVisible;
+      const linkSelected = this.UrlLink !== "" && this.LinkFieldVisible;
       const someConfigSelected = pdfSelected || linkSelected;
+      console.log(pdfSelected, "pdf selected");
+      console.log(linkSelected, "Link selected");
 
       return (
         carBrandSelected &&
