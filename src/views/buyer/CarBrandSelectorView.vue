@@ -75,20 +75,20 @@ export default {
       }
       this.page = pageNumber;
     },
-    setPersonalInfoDto(personalInfoDto) {
-      this.personalInfoDto = personalInfoDto;
+    setPersonalInfoDto(buyerUserDto) {
+      console.log(buyerUserDto);
+      this.formData.append(
+        "buyerUserDto",
+        new Blob([JSON.stringify(buyerUserDto)], {
+          type: "application/json",
+        })
+      );
     },
     handleSubmit() {
-      this.submitPersonalInfo();
-    },
-
-    submitPersonalInfo() {
-      RequestService.sendAuthorizedPostRequest(
-        "/api/buyer/info/update",
-        this.personalInfoDto
-      )
-        .then((response) => this.submitFormData())
-        .catch((response) => console.log("submitPersonalInfo failed"));
+      for (var pair of this.formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+      this.submitFormData();
     },
 
     submitFormData() {
