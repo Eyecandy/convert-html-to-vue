@@ -102,7 +102,6 @@ export default {
 
   data() {
     return {
-      allDataFetched: false,
       personalInfoDto: {
         firstName: "",
         lastName: "",
@@ -114,10 +113,28 @@ export default {
       },
     };
   },
+
   methods: {
+    allFieldsHasValidInput() {
+      const strRegex = /^[a-zA-Z ]+$/;
+      const numberRegex = /^\d+$/;
+
+      const firstNameValid = strRegex.test(this.personalInfoDto.firstName);
+      const lastNameValid = strRegex.test(this.personalInfoDto.lastName);
+      const phoneNumberValid = numberRegex.test(
+        this.personalInfoDto.phoneNumber
+      );
+      const postBoxValid = numberRegex.test(this.personalInfoDto.postBox);
+      const cityValid = strRegex.test(this.personalInfoDto.city);
+      const streetNameValid = strRegex.test(this.personalInfoDto.streetName);
+      const streetNumberValid = numberRegex.test(
+        this.personalInfoDto.streetNumber
+      );
+    },
     handleSubmit() {
+      this.allFieldsHasValidInput();
       this.$emit("personalInfoDto", this.personalInfoDto);
-      this.$emit("nextPage", 3);
+      //this.$emit("nextPage", 3);
     },
     onFormChange() {
       SessionStorageService.tempUpdate("personalInfoDto", this.personalInfoDto);
