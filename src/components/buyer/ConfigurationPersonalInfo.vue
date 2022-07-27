@@ -7,7 +7,7 @@
       @change="onFormChange"
       type="Text"
       placeholder="Fornavn"
-      class="form-control display-7"
+      :class="getClassForTextField(personalInfoDto.firstName)"
       required="required"
       v-model="personalInfoDto.firstName"
       id="Brukernavn-form4-a1"
@@ -18,7 +18,7 @@
       @change="onFormChange"
       type="Text"
       placeholder="Etternavn"
-      class="form-control display-7"
+      :class="getClassForTextField(personalInfoDto.lastName)"
       required="required"
       v-model="personalInfoDto.lastName"
       id="Brukernavn-form4-a2"
@@ -29,9 +29,9 @@
     <input
       @change="onFormChange"
       placeholder="telefon nummer"
-      class="form-control display-7"
-      required="required"
+      :class="getClassForNumberField(personalInfoDto.phoneNumber)"
       v-model="personalInfoDto.phoneNumber"
+      required="required"
       id="Brukernavn-form4-a3"
     />
   </div>
@@ -40,7 +40,7 @@
     <input
       @change="onFormChange"
       placeholder="By"
-      class="form-control display-7"
+      :class="getClassForTextField(personalInfoDto.city)"
       required="required"
       v-model="personalInfoDto.city"
       id="Brukernavn-form4-a3"
@@ -50,7 +50,7 @@
     <input
       @change="onFormChange"
       placeholder="Post Nummer"
-      class="form-control display-7"
+      :class="getClassForNumberField(personalInfoDto.postBox)"
       required="required"
       v-model="personalInfoDto.postBox"
       id="Brukernavn-form4-a4"
@@ -61,7 +61,7 @@
     <input
       @change="onFormChange"
       placeholder="Gate Navn"
-      class="form-control display-7"
+      :class="getClassForTextField(personalInfoDto.streetName)"
       required="required"
       v-model="personalInfoDto.streetName"
       id="Brukernavn-form4-a5"
@@ -72,7 +72,7 @@
     <input
       @change="onFormChange"
       placeholder="Gate Nummer"
-      class="form-control display-7"
+      :class="getClassForNumberField(personalInfoDto.streetNumber)"
       required="required"
       v-model="personalInfoDto.streetNumber"
       id="Brukernavn-form4-a6"
@@ -102,6 +102,7 @@ export default {
 
   data() {
     return {
+      fieldCheckFailed: false,
       personalInfoDto: {
         firstName: "",
         lastName: "",
@@ -116,25 +117,54 @@ export default {
 
   methods: {
     allFieldsHasValidInput() {
-      const strRegex = /^[a-zA-Z ]+$/;
-      const numberRegex = /^\d+$/;
-
-      const firstNameValid = strRegex.test(this.personalInfoDto.firstName);
-      const lastNameValid = strRegex.test(this.personalInfoDto.lastName);
-      const phoneNumberValid = numberRegex.test(
+      const firstNameValid = this.isTextOnly(this.personalInfoDto.firstName);
+      const lastNameValid = this.isTextOnly(this.personalInfoDto.lastName);
+      const phoneNumberValid = this.isNumbersOnly(
         this.personalInfoDto.phoneNumber
       );
-      const postBoxValid = numberRegex.test(this.personalInfoDto.postBox);
-      const cityValid = strRegex.test(this.personalInfoDto.city);
-      const streetNameValid = strRegex.test(this.personalInfoDto.streetName);
-      const streetNumberValid = numberRegex.test(
+      const postBoxValid = this.isNumbersOnly(this.personalInfoDto.postBox);
+      const cityValid = this.isTextOnly(this.personalInfoDto.city);
+      const streetNameValid = this.isTextOnly(this.personalInfoDto.streetName);
+      const streetNumberValid = this.isNumbersOnly(
         this.personalInfoDto.streetNumber
       );
+      return (
+        firstNameValid &&
+        lastNameValid &&
+        phoneNumberValid &&
+        postBoxValid &&
+        cityValid &&
+        streetNameValid &&
+        streetNumberValid
+      );
+    },
+    isTextOnly(stringToCheck) {
+      const textPattern = /^[a-zA-Z ]+$/;
+      return textPattern.test(stringToCheck);
+    },
+    isNumbersOnly(stringToCheck) {
+      const numberPattern = /^\d+$/;
+      return numberPattern.test(stringToCheck);
     },
     handleSubmit() {
-      this.allFieldsHasValidInput();
-      this.$emit("personalInfoDto", this.personalInfoDto);
-      //this.$emit("nextPage", 3);
+      if (this.allFieldsHasValidInput()) {
+        this.$emit("personalInfoDto", this.personalInfoDto);
+        this.$emit("nextPage", 3);
+      } else {
+        this.fieldCheckFailed = true;
+      }
+    },
+    getClassForTextField(stringToCheck) {
+      if (this.fieldCheckFailed && !this.isTextOnly(stringToCheck)) {
+        return "form-control display-7 select-error";
+      }
+      return "form-control display-7";
+    },
+    getClassForNumberField(stringToCheck) {
+      if (this.fieldCheckFailed && !this.isNumbersOnly(stringToCheck)) {
+        return "form-control display-7 select-error";
+      }
+      return "form-control display-7";
     },
     onFormChange() {
       SessionStorageService.tempUpdate("personalInfoDto", this.personalInfoDto);
@@ -142,3 +172,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.select-error {
+  background-color: rgb(230, 137, 137, 0.5);
+}
+</style>
